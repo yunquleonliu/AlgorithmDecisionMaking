@@ -1,0 +1,283 @@
+﻿<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Algorithm for Future Decision Makers</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    /* Language Toggle Switch Styles */
+    .lang-switch {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 999;
+      background: white;
+      padding: 5px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 14px;
+      display: flex;
+      gap: 5px;
+    }
+    .lang-switch button {
+      border: 1px solid #ddd;
+      background: #f8f8f8;
+      padding: 5px 10px;
+      cursor: pointer;
+      outline: none;
+      border-radius: 3px;
+      transition: all 0.2s;
+    }
+    .lang-switch button:hover {
+      background: #eaeaea;
+    }
+    .lang-switch button.active {
+      background: #42b983;
+      color: white;
+      border-color: #42b983;
+    }
+
+    /* Hiding Logic */
+    body.mode-en .is-zh { display: none !important; }
+    body.mode-zh .is-en { display: none !important; }
+    
+    /* Ensure inline spans hide correctly */
+    span.is-zh, span.is-en {
+      /* display: inline; default */
+    }
+
+    /* Transition */
+    .lang-content { transition: opacity 0.3s; }
+  </style>
+</head>
+<body>
+  
+  <div class="lang-switch">
+    <button onclick="setLang('all')" id="btn-all" class="active">All</button>
+    <button onclick="setLang('en')" id="btn-en">🇺🇸 English</button>
+    <button onclick="setLang('zh')" id="btn-zh">🇨🇳 中文</button>
+  </div>
+
+  <div id="app"></div>
+  
+  <script>
+    window.$docsify = {
+      name: 'Algorithm for Future Decision Makers',
+      repo: 'https://github.com/yunquleonliu/AlgorithmDecisionMaking',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      
+      // Enable GFM line breaks to turn newlines into <br>, helping our splitter
+      markdown: {
+        breaks: true,
+      },
+
+      plugins: [
+        function(hook, vm) {
+          hook.doneEach(function() {
+            setTimeout(() => {
+              processLanguage();
+              restoreState();
+            }, 100);
+          });
+        }
+      ]
+    }
+
+    function processLanguage() {
+      // 1. Process Headers AND List Items with Mixed Content (Parens strategy)
+      const mixedElements = document.querySelectorAll('.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section li');
+      mixedElements.forEach(el => {
+        if (el.querySelector('.lang-wrapper')) return;
+        
+        // Skip list items that have sub-lists (UL/OL children) to avoid breaking structure
+        // We only want to split "Leaf" list items or list items where the text is clearly mixed
+        // But querySelectorAll('li') includes parent LIs. 
+        // We should check direct text nodes.
+        
+        // Get Direct Text to check pattern
+        const childNodes = Array.from(el.childNodes);
+        // Filter out UL/OL to check text content
+        const textNodes = childNodes.filter(n => n.nodeType === 3 || ['STRONG','EM','CODE','SPAN','A'].includes(n.nodeName));
+        const fullText = textNodes.map(n => n.textContent).join('');
+        
+        // Check for "Text (Text)" pattern where one is ZH and one is EN
+        const mixedMatch = fullText.match(/([\s\S]*?)(\s*\(([\x00-\x7F]+)\))$/); 
+        
+        if (mixedMatch) {
+          const part1 = mixedMatch[1];
+          const part2 = mixedMatch[2]; // Includes parens
+          
+          const isPart1Zh = /[\u4e00-\u9fa5]/.test(part1);
+          const isPart2Zh = /[\u4e00-\u9fa5]/.test(part2);
+          
+          if (isPart1Zh !== isPart2Zh) {
+             // It is mixed! Reconstruct HTML for the text part only.
+             // We need to keep the structure (like nested ULs in LIs).
+             // Strategy: create two spans, insert them before the first text node, remove original text nodes.
+             
+             const span1 = document.createElement('span');
+             span1.className = isPart1Zh ? 'is-zh' : 'is-en';
+             span1.innerText = part1; // Note: this strips formatting (bold/italic) from original!
+             // Wait, stripping formatting is bad. "Expected: **Title** (EnTitle)" -> "**Title**" and "(EnTitle)"? 
+             // RegEx on textContent destroys HTML tags inside.
+             // If the user has "**ZH** (EN)", InnerText is "ZH (EN)".
+             // If I replace with spans of plain text, I lose bold.
+             
+             // Revised Strategy for formatted mixed content:
+             // Only apply this simple split if the content is MOSTLY plain text or if we accept losing formatting on the split boundary.
+             // Given the user complaints, simple text split is better than invisible content.
+             // BUT, losing "**" bolding is annoying. 
+             
+             // Heuristic: If innerHTML contains tags, maybe skip or try advanced?
+             // For now, let's stick to the Text replacement for "Parens at end" case.
+             
+             const span2 = document.createElement('span');
+             span2.className = isPart2Zh ? 'is-zh' : 'is-en';
+             span2.innerText = part2;
+             
+             // Remove 'text-like' nodes we extracted from
+             textNodes.forEach(n => el.removeChild(n));
+             
+             // Insert new spans at the beginning (or where text was?)
+             // Usually text is at start.
+             if (el.firstChild) {
+                 el.insertBefore(span2, el.firstChild);
+                 el.insertBefore(span1, el.firstChild);
+             } else {
+                 el.appendChild(span1);
+                 el.appendChild(span2);
+             }
+             
+             // Add wrapper class to prevent re-processing
+             // And preventing step 3 from hiding it whole
+             el.classList.add('lang-wrapper'); 
+             return;
+          }
+        }
+      });
+
+      // 2. Process Block Elements (P, BLOCKQUOTE) for multi-line splits
+      const blocks = document.querySelectorAll('.markdown-section p, .markdown-section blockquote');
+      blocks.forEach(el => {
+        if (el.classList.contains('lang-processed')) return;
+        
+        // Check for BR tags indicating line breaks in blockquotes
+        const hasBr = el.querySelector('br');
+        if (hasBr) {
+          // Complex case: mixed TextNodes and BR elements
+          // We need to group siblings between BRs
+          const groups = [];
+          let currentGroup = document.createElement('span');
+          
+          Array.from(el.childNodes).forEach(node => {
+            if (node.nodeName === 'BR') {
+              // Finish current group
+              if(currentGroup.hasChildNodes()) groups.push(currentGroup);
+              groups.push(node); // Keep BR
+              currentGroup = document.createElement('span'); // Start new
+            } else {
+              currentGroup.appendChild(node.cloneNode(true));
+            }
+          });
+          if(currentGroup.hasChildNodes()) groups.push(currentGroup);
+          
+          // Now classify the span groups
+          groups.forEach(g => {
+            if (g.nodeName !== 'BR') {
+               const text = g.innerText;
+               const isZh = /[\u4e00-\u9fa5]/.test(text);
+               const isEn = /[a-zA-Z]/.test(text);
+               
+               // Only apply if it has content
+               if (text.trim()) {
+                 if (isZh) g.classList.add('is-zh');
+                 else if (isEn) g.classList.add('is-en');
+               }
+            }
+          });
+          
+          // Replace content
+          el.innerHTML = '';
+          groups.forEach(g => el.appendChild(g));
+          el.classList.add('lang-processed');
+          
+        } else {
+           classifyElement(el);
+        }
+      });
+
+      // 3. Lists (previous logic)
+      const listItems = document.querySelectorAll('.markdown-section li');
+      listItems.forEach(li => {
+        if (li.querySelector('.lang-wrapper')) return;
+
+        // Get direct text content
+        let textNodes = [];
+        li.childNodes.forEach(n => {
+           if (n.nodeType === 3 || ['STRONG','EM','CODE','SPAN','A'].includes(n.nodeName)) {
+             textNodes.push(n);
+           }
+        });
+        
+        if (textNodes.length === 0) return;
+        
+        // Check text content - fix potential logic error to be safer
+        let fullText = textNodes.map(n => n.textContent).join('');
+        if (!fullText.trim()) return;
+        
+        // Wrap
+        const span = document.createElement('span');
+        span.classList.add('lang-wrapper');
+        // If it contains chinese, mark as ZH. If NO chinese but HAS letters, mark EN.
+        const hasZh = /[\u4e00-\u9fa5]/.test(fullText);
+        const hasEn = /[a-zA-Z]/.test(fullText);
+
+        if (hasZh) {
+             span.classList.add('is-zh');
+        } else if (hasEn) {
+             span.classList.add('is-en');
+        }
+        
+        // Insert before first text node
+        li.insertBefore(span, textNodes[0]);
+        textNodes.forEach(n => span.appendChild(n));
+      });
+    }
+
+    function classifyElement(el) {
+      if (el.classList.contains('lang-processed')) return;
+      const text = el.innerText;
+      if (!text.trim()) return;
+      
+      const hasZh = /[\u4e00-\u9fa5]/.test(text);
+      const hasEn = /[a-zA-Z]/.test(text);
+      
+      if (hasZh) {
+        el.classList.add('is-zh');
+      } else if (hasEn) {
+        el.classList.add('is-en');
+      }
+      el.classList.add('lang-processed');
+    }
+
+    function setLang(lang) {
+      document.body.classList.remove('mode-all', 'mode-en', 'mode-zh');
+      document.body.classList.add('mode-' + lang);
+      document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + lang).classList.add('active');
+      localStorage.setItem('docsify-lang-pref', lang);
+    }
+
+    function restoreState() {
+      const pref = localStorage.getItem('docsify-lang-pref') || 'all';
+      setLang(pref);
+    }
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+</body>
+</html>
