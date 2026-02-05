@@ -67,7 +67,7 @@ However, we have an extremely simple approximation strategy: **First Fit Decreas
 数学家证明，这个极简策略得出的结果，**绝不会超过最优解的 1.22 倍**。
 Mathematicians have proved that the result obtained by this minimalist strategy **will never exceed 1.22 times the optimal solution**.
 
-### 核心智慧：容忍盈余 (Slack)
+### 核心智慧：容忍盈余
 ### Core Wisdom: Tolerating Slack (Surplus)
 
 装箱问题的近似解告诉我们要接受 **Slack (空隙/盈余)**。当你使用 First Fit 策略时，箱子里不可避免会有一些填不满的小空隙。完美主义者会盯着这些空隙难受，想要把它填满。但正是这些空隙，给了系统**鲁棒性**。如果你的日程表严丝合缝（最优解），任何一个突发的小意外（一个电话、一次堵车）都会让整个多米诺骨牌崩塌。

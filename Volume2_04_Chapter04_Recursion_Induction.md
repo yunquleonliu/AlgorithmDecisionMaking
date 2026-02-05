@@ -39,7 +39,7 @@ Recall the Mathematical Induction proofs from high school:
 3.  **Combine**：基于子问题的正确结果，构建当前问题的解。
     *   **Combine**: Construct the solution for the current problem based on the correct results of the subproblems.
 
-## 二、案例：反转链表 (Reverse Linked List)
+## 二、案例：反转链表
 ## II. Case Study: Reverse Linked List
 
 **问题**：反转一个单链表。
@@ -106,7 +106,7 @@ def reverseList(head):
 This is the essence of recursive design: **Don't think about the control flow. Think about the contract.**
 Do not think about "how the stack is pushed," think about "if the sub-function is correct, how do I pass the baton."
 
-## 三、分治 (Divide and Conquer)
+## 三、分治
 ## III. Divide and Conquer
 
 分治算法是递归的一种特殊形式：**将解空间切分为独立的子区域**。

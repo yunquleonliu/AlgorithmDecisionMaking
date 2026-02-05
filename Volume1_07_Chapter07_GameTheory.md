@@ -126,7 +126,7 @@ To drive others, human history offers only three ways: **Coercion**, **Deception
 
 As a decision-maker (parent, boss, rule-maker), your core task is not moral preaching, but **Mechanism Design**: **How to define a set of rules such that "every cognitively limited individual, acting in their own self-interest, does what is beneficial for others and the collective"?**
 
-#### 经典算法案例：维克里拍卖 (Vickrey Auction)
+#### 经典算法案例：维克里拍卖
 #### Classic Algorithm Case: Vickrey Auction
 
 如果我想把这幅画卖给最需要它（出价最高）的人，但我不知道每个人心里的底价。如果直接让大家喊价，所有人都会为了省钱而故意喊低。这就导致了博养中的“诚实不兼容”。

@@ -35,7 +35,7 @@ Internally, you must promise a set of Invariants to yourself.
     *   返回前 (Post-condition)：必须**修复** Invariant。
         *   **Post-condition**: Must **restore** the Invariant.
 
-## 二、案例：堆 (Binary Heap)
+## 二、案例：堆
 ## II. Case Study: Binary Heap
 
 **二叉最小堆 (Min-Heap)** 看起来只是一个数组，但它严格维护着一个**结构不变量**。
@@ -72,7 +72,7 @@ Let's see how `push` and `pop` are designed around this invariant:
 所有的代码逻辑，本质上都是 **Invariant Restorer (不变量修复器)**。
 All code logic is essentially an **Invariant Restorer**.
 
-## 三、案例：LRU 缓存 (LRU Cache)
+## 三、案例：LRU 缓存
 ## III. Case Study: LRU Cache
 
 设计一个 LRU (Least Recently Used) 缓存，要求 `get` 和 `put` 都是 $O(1)$。

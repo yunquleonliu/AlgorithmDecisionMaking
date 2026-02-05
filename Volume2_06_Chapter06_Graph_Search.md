@@ -8,7 +8,7 @@
 
 Graph theory algorithms look difficult, but if you strip away the shell of all graph algorithms, they all share the same kernel: **Management of the Frontier**.
 
-## 一、隐式图 (Implicit Graph)
+## 一、隐式图
 ## I. Implicit Graph
 
 在算法面试中，很少有人直接给你画一幅图。图通常是隐式的：

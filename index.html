@@ -89,53 +89,76 @@
     }
 
     function processLanguage() {
-      // 1. Process Headers with Mixed Content (Parens strategy)
-      const headers = document.querySelectorAll('.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4');
-      headers.forEach(el => {
+      // 1. Process Headers AND List Items with Mixed Content (Parens strategy)
+      const mixedElements = document.querySelectorAll('.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section li');
+      mixedElements.forEach(el => {
         if (el.querySelector('.lang-wrapper')) return;
         
+        // Skip list items that have sub-lists (UL/OL children) to avoid breaking structure
+        // We only want to split "Leaf" list items or list items where the text is clearly mixed
+        // But querySelectorAll('li') includes parent LIs. 
+        // We should check direct text nodes.
+        
+        // Get Direct Text to check pattern
+        const childNodes = Array.from(el.childNodes);
+        // Filter out UL/OL to check text content
+        const textNodes = childNodes.filter(n => n.nodeType === 3 || ['STRONG','EM','CODE','SPAN','A'].includes(n.nodeName));
+        const fullText = textNodes.map(n => n.textContent).join('');
+        
         // Check for "Text (Text)" pattern where one is ZH and one is EN
-        // We look for: anything followed by ( ascii text )
-        const text = el.innerText;
-        const mixedMatch = text.match(/([\s\S]*?)(\s*\(([\x00-\x7F]+)\))$/); 
-        // regex explanation: 
-        // group 1: main part (greedy-ish)
-        // group 2: space + ( + english text + ) at the end
+        const mixedMatch = fullText.match(/([\s\S]*?)(\s*\(([\x00-\x7F]+)\))$/); 
         
         if (mixedMatch) {
           const part1 = mixedMatch[1];
-          const part2 = mixedMatch[2];
+          const part2 = mixedMatch[2]; // Includes parens
           
           const isPart1Zh = /[\u4e00-\u9fa5]/.test(part1);
           const isPart2Zh = /[\u4e00-\u9fa5]/.test(part2);
           
           if (isPart1Zh !== isPart2Zh) {
-            const span1 = document.createElement('span');
-            span1.className = isPart1Zh ? 'is-zh' : 'is-en';
-            span1.innerText = part1;
-            
-            const span2 = document.createElement('span');
-            span2.className = isPart2Zh ? 'is-zh' : 'is-en';
-            span2.innerText = part2;
-
-            // Clear text, keep anchors? 
-            // Docsify: <h2><a class="anchor"></a><span>Text</span></h2>
-            // We will filter childNodes.
-            
-            const children = Array.from(el.childNodes);
-            const anchor = children.find(n => n.nodeName === 'A' && n.className.includes('anchor'));
-            
-            el.innerHTML = '';
-            if (anchor) el.appendChild(anchor);
-            el.appendChild(span1);
-            el.appendChild(span2);
-            el.classList.add('lang-processed');
-            return; 
+             // It is mixed! Reconstruct HTML for the text part only.
+             // We need to keep the structure (like nested ULs in LIs).
+             // Strategy: create two spans, insert them before the first text node, remove original text nodes.
+             
+             const span1 = document.createElement('span');
+             span1.className = isPart1Zh ? 'is-zh' : 'is-en';
+             span1.innerText = part1; // Note: this strips formatting (bold/italic) from original!
+             // Wait, stripping formatting is bad. "Expected: **Title** (EnTitle)" -> "**Title**" and "(EnTitle)"? 
+             // RegEx on textContent destroys HTML tags inside.
+             // If the user has "**ZH** (EN)", InnerText is "ZH (EN)".
+             // If I replace with spans of plain text, I lose bold.
+             
+             // Revised Strategy for formatted mixed content:
+             // Only apply this simple split if the content is MOSTLY plain text or if we accept losing formatting on the split boundary.
+             // Given the user complaints, simple text split is better than invisible content.
+             // BUT, losing "**" bolding is annoying. 
+             
+             // Heuristic: If innerHTML contains tags, maybe skip or try advanced?
+             // For now, let's stick to the Text replacement for "Parens at end" case.
+             
+             const span2 = document.createElement('span');
+             span2.className = isPart2Zh ? 'is-zh' : 'is-en';
+             span2.innerText = part2;
+             
+             // Remove 'text-like' nodes we extracted from
+             textNodes.forEach(n => el.removeChild(n));
+             
+             // Insert new spans at the beginning (or where text was?)
+             // Usually text is at start.
+             if (el.firstChild) {
+                 el.insertBefore(span2, el.firstChild);
+                 el.insertBefore(span1, el.firstChild);
+             } else {
+                 el.appendChild(span1);
+                 el.appendChild(span2);
+             }
+             
+             // Add wrapper class to prevent re-processing
+             // And preventing step 3 from hiding it whole
+             el.classList.add('lang-wrapper'); 
+             return;
           }
         }
-        
-        // Fallback for Headers
-        classifyElement(el);
       });
 
       // 2. Process Block Elements (P, BLOCKQUOTE) for multi-line splits

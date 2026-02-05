@@ -118,7 +118,7 @@ def binary_search(nums, target):
     return -1
 ```
 
-## 三、二分答案 (Binary Search on Answer)
+## 三、二分答案
 ## III. Binary Search on Answer
 
 二分的威力在于，**只要解空间具有单调性，我们就可以通过二分来锁定答案**，哪怕这个“答案”并不是在一个数组里。

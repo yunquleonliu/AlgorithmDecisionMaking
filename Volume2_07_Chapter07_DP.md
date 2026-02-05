@@ -43,7 +43,7 @@ DP is **Bottom-Up**: I verify `f(1)` first, then calculate `f(2)` ... and finall
 它们计算的**拓扑顺序 (Topological Order)** 是一模一样的，只是方向不同。
 Their **Topological Order** of computation is exactly the same, only the direction differs.
 
-### 案例：爬楼梯 (Climbing Stairs)
+### 案例：爬楼梯
 ### Case Study: Climbing Stairs
 
 *   **状态**：`dp[i]` 表示到达第 $i$ 阶的方法总数。

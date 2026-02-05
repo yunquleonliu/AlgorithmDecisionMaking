@@ -12,7 +12,7 @@ Some problems seem to require a lot of storage space, but if you carefully obser
 
 The core idea of **Pair Cancellation**: Find a mechanism that allows a pair of elements to annihilate each other **without changing the answer to the problem**.
 
-## 一、多数投票问题 (Majority Vote)
+## 一、多数投票问题
 ## I. Majority Vote
 
 **问题**：给定一个长度为 $n$ 的数组，找出出现次数超过 $n/2$ 的元素（假设必定存在）。
@@ -66,7 +66,7 @@ def majority_element(nums):
 **Scalpel Analysis**:
 We compressed $O(N)$ space (HashMap) into $O(1)$ registers. This is because we identified the invariant that "cancellation does not change the result."
 
-## 二、栈与括号 (Stack as Cancellation)
+## 二、栈与括号
 ## II. Stack and Parentheses (Stack as Cancellation)
 
 栈（Stack）通常被视为一种数据结构，但在算法设计中，它更像是一个**消除场**。
@@ -109,7 +109,7 @@ def is_valid(s):
     return len(stack) == 0 # Invariant: Everything should be canceled
 ```
 
-## 三、异或的唯一 (XOR Cancellation)
+## 三、异或的唯一
 ## III. The Uniqueness of XOR (XOR Cancellation)
 
 最纯粹的消除，莫过于计算机底层的异或运算（XOR）。

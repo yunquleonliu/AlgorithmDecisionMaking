@@ -13,7 +13,7 @@ Why do we often feel exhausted, conflicted, and powerless in life? Because our b
 算法式思维的第一步，不是学习技巧，而是承认局限。所有高效的计算机算法，都建立在对这三个限制公理的深刻理解之上。如果说人生是一场游戏，那么这三条就是物理引擎的底层规则。
 The first step of algorithmic thinking is not to learn techniques, but to acknowledge limitations. All efficient computer algorithms are built upon a profound understanding of these three limiting axioms. If life is a game, then these three are the fundamental rules of its physics engine.
 
-### 公理一：解空间是有限的 (Constraints are Real)
+### 公理一：解空间是有限的
 ### Axiom 1: Constraints are Real
 
 **你没有无限的算力，也没有无限的时间。**
@@ -40,7 +40,7 @@ Acknowledging the finiteness of the solution space means we must accept **Trade-
 *   **用空间换时间**：为了未来的速度，哪怕冗余存储也在所不惜（Robustness）。
     *   **Trading Space for Speed**: Sacrificing storage for future speed, even if it means redundancy (Robustness).
 
-### 公理二：信息不仅不全，而且昂贵 (Information is Costly)
+### 公理二：信息不仅不全，而且昂贵
 ### Axiom 2: Information is Costly
 
 **上帝视角是不存在的，即使存在，你也买不起。**
@@ -65,7 +65,7 @@ Attempting to acquire "perfect information" before deciding often leads to **Ana
 *   当看不清未来时，与其焦虑，不如信任眼前的**局部最优（Greedy）**。
     *   When the future is unclear, rather than being anxious, it is better to trust the immediate **Local Optimum (Greedy)**.
 
-### 公理三：算法即删减 (Intelligence is Pruning)
+### 公理三：算法即删减
 ### Axiom 3: Intelligence is Pruning
 
 **聪明的本质，不是因为我们记住了什么，而是因为我们忘记了什么。**

@@ -51,7 +51,7 @@ The algorithm recommends: **Do not try to deduce. Go Sample.**
 你不需要喝光整桶汤才知道它咸不咸，只需要喝一勺（采样）。只要样本是随机且具有代表性的，**模糊的正确永远胜过精确的错误**。
 You don’t need to drink the whole pot of soup to know if it’s salty; you just need to taste a spoonful (sample). As long as the sample is random and representative, **vague correctness is always better than precise error.**
 
-### 两座赌城：蒙特卡洛 (Monte Carlo) vs 拉斯维加斯 (Las Vegas)
+### 两座赌城：蒙特卡洛 (Monte Carlo) vs 拉斯维加斯
 ### Two Gambling Cities: Monte Carlo vs. Las Vegas
 
 在引入随机性时，计算机科学家给出了两种截然不同的策略，并用两座著名的赌城来命名它们。理解这两者的区别，对生活决策至关重要。
