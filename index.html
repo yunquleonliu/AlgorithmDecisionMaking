@@ -40,22 +40,17 @@
       border-color: #42b983;
     }
 
-    /* Hiding Logic - Scoped to language specific classes */
-    /* When mode is EN, hide Chinese elements */
+    /* Hiding Logic */
     body.mode-en .is-zh { display: none !important; }
-    
-    /* When mode is ZH, hide English elements */
     body.mode-zh .is-en { display: none !important; }
     
-    /* Transition effects */
-    .lang-content {
-      transition: opacity 0.3s;
+    /* Ensure inline spans hide correctly */
+    span.is-zh, span.is-en {
+      /* display: inline; default */
     }
-    
-    /* Fix for lists: Improve vertical rhythm when items are hidden */
-    li {
-      /* min-height: 0; */ 
-    }
+
+    /* Transition */
+    .lang-content { transition: opacity 0.3s; }
   </style>
 </head>
 <body>
@@ -76,11 +71,9 @@
       subMaxLevel: 3,
       auto2top: true,
       
-      // Custom Plugin for Language Detection
       plugins: [
         function(hook, vm) {
           hook.doneEach(function() {
-            // Wait for render to stabilize logic
             setTimeout(() => {
               processLanguage();
               restoreState();
@@ -91,86 +84,164 @@
     }
 
     function processLanguage() {
-      // 1. Process Block Elements (P, BLOCKQUOTE, Heading)
-      // We exclude 'li' here because we handle it separately
-      const blocks = document.querySelectorAll('.markdown-section p, .markdown-section blockquote, .markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4');
-      blocks.forEach(el => {
-        classifyAndApply(el);
+      // 1. Process Headers with Mixed Content (Parens strategy)
+      const headers = document.querySelectorAll('.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4');
+      headers.forEach(el => {
+        if (el.querySelector('.lang-wrapper')) return;
+        
+        // Check for "Text (Text)" pattern where one is ZH and one is EN
+        // We look for: anything followed by ( ascii text )
+        const text = el.innerText;
+        const mixedMatch = text.match(/([\s\S]*?)(\s*\(([\x00-\x7F]+)\))$/); 
+        // regex explanation: 
+        // group 1: main part (greedy-ish)
+        // group 2: space + ( + english text + ) at the end
+        
+        if (mixedMatch) {
+          const part1 = mixedMatch[1];
+          const part2 = mixedMatch[2];
+          
+          const isPart1Zh = /[\u4e00-\u9fa5]/.test(part1);
+          const isPart2Zh = /[\u4e00-\u9fa5]/.test(part2);
+          
+          if (isPart1Zh !== isPart2Zh) {
+            const span1 = document.createElement('span');
+            span1.className = isPart1Zh ? 'is-zh' : 'is-en';
+            span1.innerText = part1;
+            
+            const span2 = document.createElement('span');
+            span2.className = isPart2Zh ? 'is-zh' : 'is-en';
+            span2.innerText = part2;
+
+            // Clear text, keep anchors? 
+            // Docsify: <h2><a class="anchor"></a><span>Text</span></h2>
+            // We will filter childNodes.
+            
+            const children = Array.from(el.childNodes);
+            const anchor = children.find(n => n.nodeName === 'A' && n.className.includes('anchor'));
+            
+            el.innerHTML = '';
+            if (anchor) el.appendChild(anchor);
+            el.appendChild(span1);
+            el.appendChild(span2);
+            el.classList.add('lang-processed');
+            return; 
+          }
+        }
+        
+        // Fallback for Headers
+        classifyElement(el);
       });
 
-      // 2. Process List Items (LI) - Special Handling for Nested Lists
-      // We want to wrap the distinct text content of the LI in a span, 
-      // without affecting the nested UL/OL which might contain other languages.
+      // 2. Process Block Elements (P, BLOCKQUOTE) for multi-line splits
+      const blocks = document.querySelectorAll('.markdown-section p, .markdown-section blockquote');
+      blocks.forEach(el => {
+        if (el.classList.contains('lang-processed')) return;
+        
+        // Check for BR tags indicating line breaks in blockquotes
+        const hasBr = el.querySelector('br');
+        if (hasBr) {
+          // Complex case: mixed TextNodes and BR elements
+          // We need to group siblings between BRs
+          const groups = [];
+          let currentGroup = document.createElement('span');
+          
+          Array.from(el.childNodes).forEach(node => {
+            if (node.nodeName === 'BR') {
+              // Finish current group
+              if(currentGroup.hasChildNodes()) groups.push(currentGroup);
+              groups.push(node); // Keep BR
+              currentGroup = document.createElement('span'); // Start new
+            } else {
+              currentGroup.appendChild(node.cloneNode(true));
+            }
+          });
+          if(currentGroup.hasChildNodes()) groups.push(currentGroup);
+          
+          // Now classify the span groups
+          groups.forEach(g => {
+            if (g.nodeName !== 'BR') {
+               const text = g.innerText;
+               const isZh = /[\u4e00-\u9fa5]/.test(text);
+               const isEn = /[a-zA-Z]/.test(text);
+               
+               // Only apply if it has content
+               if (text.trim()) {
+                 if (isZh) g.classList.add('is-zh');
+                 else if (isEn) g.classList.add('is-en');
+               }
+            }
+          });
+          
+          // Replace content
+          el.innerHTML = '';
+          groups.forEach(g => el.appendChild(g));
+          el.classList.add('lang-processed');
+          
+        } else {
+           classifyElement(el);
+        }
+      });
+
+      // 3. Lists (previous logic)
       const listItems = document.querySelectorAll('.markdown-section li');
       listItems.forEach(li => {
-        // Collect nodes that are part of this list item's direct content
-        const contentNodes = [];
-        let hasSubList = false;
+        if (li.querySelector('.lang-wrapper')) return;
+
+        // Get direct text content
+        let textNodes = [];
+        li.childNodes.forEach(n => {
+           if (n.nodeType === 3 || ['STRONG','EM','CODE','SPAN','A'].includes(n.nodeName)) {
+             textNodes.push(n);
+           }
+        });
         
-        // Iterate over child nodes to find content vs sublists
-        const children = Array.from(li.childNodes);
-        for (const node of children) {
-          if (node.nodeName === 'UL' || node.nodeName === 'OL') {
-            hasSubList = true;
-            // Recursively process this sublist isn't needed here as querySelectorAll gets all li's flattening the tree
-            continue; 
-          }
-          // We include text nodes, and inline elements (strong, em, code, etc.)
-          contentNodes.push(node);
+        if (textNodes.length === 0) return;
+        
+        // Check text content - fix potential logic error to be safer
+        let fullText = textNodes.map(n => n.textContent).join('');
+        if (!fullText.trim()) return;
+        
+        // Wrap
+        const span = document.createElement('span');
+        span.classList.add('lang-wrapper');
+        // If it contains chinese, mark as ZH. If NO chinese but HAS letters, mark EN.
+        const hasZh = /[\u4e00-\u9fa5]/.test(fullText);
+        const hasEn = /[a-zA-Z]/.test(fullText);
+
+        if (hasZh) {
+             span.classList.add('is-zh');
+        } else if (hasEn) {
+             span.classList.add('is-en');
         }
-
-        if (contentNodes.length > 0) {
-          // Check if already wrapped to prevent infinite recursion on re-renders
-          if (li.querySelector('.lang-wrapper')) return;
-
-          // Extract text for classification
-          let textContent = "";
-          contentNodes.forEach(n => textContent += n.textContent);
-          
-          if (!textContent.trim()) return;
-
-          // Determine Language
-          const isZh = /[\u4e00-\u9fa5]/.test(textContent);
-          const langClass = isZh ? 'is-zh' : 'is-en';
-          
-          // Create Wrapper
-          const span = document.createElement('span');
-          span.classList.add('lang-content', 'lang-wrapper', langClass); // added lang-wrapper marker
-          
-          // Insert span before the first content node (to keep position)
-          if (contentNodes[0] && contentNodes[0].parentNode === li) {
-              li.insertBefore(span, contentNodes[0]);
-              // Move nodes into wrapper
-              contentNodes.forEach(node => span.appendChild(node));
-          }
-        }
+        
+        // Insert before first text node
+        li.insertBefore(span, textNodes[0]);
+        textNodes.forEach(n => span.appendChild(n));
       });
     }
 
-    function classifyAndApply(el) {
-      if (el.classList.contains('is-zh') || el.classList.contains('is-en')) return;
-      
+    function classifyElement(el) {
+      if (el.classList.contains('lang-processed')) return;
       const text = el.innerText;
-      // Skip empty blocks
       if (!text.trim()) return;
-
-      const hasChinese = /[\u4e00-\u9fa5]/.test(text);
-      if (hasChinese) {
+      
+      const hasZh = /[\u4e00-\u9fa5]/.test(text);
+      const hasEn = /[a-zA-Z]/.test(text);
+      
+      if (hasZh) {
         el.classList.add('is-zh');
-      } else {
+      } else if (hasEn) {
         el.classList.add('is-en');
       }
+      el.classList.add('lang-processed');
     }
 
     function setLang(lang) {
       document.body.classList.remove('mode-all', 'mode-en', 'mode-zh');
       document.body.classList.add('mode-' + lang);
-      
-      // Update buttons
       document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
       document.getElementById('btn-' + lang).classList.add('active');
-
-      // Save preference
       localStorage.setItem('docsify-lang-pref', lang);
     }
 
