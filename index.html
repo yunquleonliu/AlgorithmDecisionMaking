@@ -1,0 +1,116 @@
+﻿<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Algorithm for Future Decision Makers</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    /* Language Toggle Switch Styles */
+    .lang-switch {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 999;
+      background: white;
+      padding: 5px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+    .lang-switch button {
+      border: 1px solid #ddd;
+      background: #f8f8f8;
+      padding: 5px 10px;
+      cursor: pointer;
+      outline: none;
+    }
+    .lang-switch button.active {
+      background: #42b983;
+      color: white;
+      border-color: #42b983;
+    }
+
+    /* Hiding Logic */
+    body.mode-en .is-zh { display: none !important; }
+    body.mode-zh .is-en { display: none !important; }
+    
+    /* Optional: Fade effect */
+    .markdown-section p, .markdown-section li, .markdown-section blockquote {
+      transition: opacity 0.3s;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="lang-switch">
+    <button onclick="setLang('all')" id="btn-all" class="active">All</button>
+    <button onclick="setLang('en')" id="btn-en">🇺🇸 English</button>
+    <button onclick="setLang('zh')" id="btn-zh">🇨🇳 Chinese</button>
+  </div>
+
+  <div id="app"></div>
+  
+  <script>
+    window.$docsify = {
+      name: 'Algorithm for Future Decision Makers',
+      repo: 'https://github.com/yunquleonliu/AlgorithmDecisionMaking',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      auto2top: true,
+      
+      // Custom Plugin for Language Detection
+      plugins: [
+        function(hook, vm) {
+          hook.doneEach(function() {
+            // Wait for render
+            setTimeout(() => {
+              processLanguage();
+              restoreState();
+            }, 100);
+          });
+        }
+      ]
+    }
+
+    function processLanguage() {
+      // Select text-heavy elements: paragraphs, list items, blockquotes
+      // We purposefully SKIP headers (h1-h6) to preserve document structure even if bilingual headers are used
+      const elements = document.querySelectorAll('.markdown-section p, .markdown-section li, .markdown-section blockquote');
+      
+      elements.forEach(el => {
+        // Simple Heuristic: If it contains Chinese characters, treat as ZH. Else EN.
+        // Range \u4e00-\u9fa5 covers most common CJK chars.
+        // We check if at least one Chinese character exists.
+        const hasChinese = /[\u4e00-\u9fa5]/.test(el.innerText);
+        
+        if (hasChinese) {
+          el.classList.add('is-zh');
+        } else {
+          el.classList.add('is-en');
+        }
+      });
+    }
+
+    function setLang(lang) {
+      document.body.classList.remove('mode-all', 'mode-en', 'mode-zh');
+      document.body.classList.add('mode-' + lang);
+      
+      // Update buttons
+      document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-' + lang).classList.add('active');
+
+      // Save preference
+      localStorage.setItem('docsify-lang-pref', lang);
+    }
+
+    function restoreState() {
+      const pref = localStorage.getItem('docsify-lang-pref') || 'all';
+      setLang(pref);
+    }
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+</body>
+</html>
