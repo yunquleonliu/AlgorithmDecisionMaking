@@ -19,6 +19,8 @@
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       font-size: 14px;
+      display: flex;
+      gap: 5px;
     }
     .lang-switch button {
       border: 1px solid #ddd;
@@ -26,6 +28,11 @@
       padding: 5px 10px;
       cursor: pointer;
       outline: none;
+      border-radius: 3px;
+      transition: all 0.2s;
+    }
+    .lang-switch button:hover {
+      background: #eaeaea;
     }
     .lang-switch button.active {
       background: #42b983;
@@ -33,13 +40,21 @@
       border-color: #42b983;
     }
 
-    /* Hiding Logic */
+    /* Hiding Logic - Scoped to language specific classes */
+    /* When mode is EN, hide Chinese elements */
     body.mode-en .is-zh { display: none !important; }
+    
+    /* When mode is ZH, hide English elements */
     body.mode-zh .is-en { display: none !important; }
     
-    /* Optional: Fade effect */
-    .markdown-section p, .markdown-section li, .markdown-section blockquote {
+    /* Transition effects */
+    .lang-content {
       transition: opacity 0.3s;
+    }
+    
+    /* Fix for lists: Improve vertical rhythm when items are hidden */
+    li {
+      /* min-height: 0; */ 
     }
   </style>
 </head>
@@ -48,7 +63,7 @@
   <div class="lang-switch">
     <button onclick="setLang('all')" id="btn-all" class="active">All</button>
     <button onclick="setLang('en')" id="btn-en">🇺🇸 English</button>
-    <button onclick="setLang('zh')" id="btn-zh">🇨🇳 Chinese</button>
+    <button onclick="setLang('zh')" id="btn-zh">🇨🇳 中文</button>
   </div>
 
   <div id="app"></div>
@@ -58,14 +73,14 @@
       name: 'Algorithm for Future Decision Makers',
       repo: 'https://github.com/yunquleonliu/AlgorithmDecisionMaking',
       loadSidebar: true,
-      subMaxLevel: 2,
+      subMaxLevel: 3,
       auto2top: true,
       
       // Custom Plugin for Language Detection
       plugins: [
         function(hook, vm) {
           hook.doneEach(function() {
-            // Wait for render
+            // Wait for render to stabilize logic
             setTimeout(() => {
               processLanguage();
               restoreState();
@@ -76,22 +91,75 @@
     }
 
     function processLanguage() {
-      // Select text-heavy elements: paragraphs, list items, blockquotes
-      // We purposefully SKIP headers (h1-h6) to preserve document structure even if bilingual headers are used
-      const elements = document.querySelectorAll('.markdown-section p, .markdown-section li, .markdown-section blockquote');
-      
-      elements.forEach(el => {
-        // Simple Heuristic: If it contains Chinese characters, treat as ZH. Else EN.
-        // Range \u4e00-\u9fa5 covers most common CJK chars.
-        // We check if at least one Chinese character exists.
-        const hasChinese = /[\u4e00-\u9fa5]/.test(el.innerText);
+      // 1. Process Block Elements (P, BLOCKQUOTE, Heading)
+      // We exclude 'li' here because we handle it separately
+      const blocks = document.querySelectorAll('.markdown-section p, .markdown-section blockquote, .markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4');
+      blocks.forEach(el => {
+        classifyAndApply(el);
+      });
+
+      // 2. Process List Items (LI) - Special Handling for Nested Lists
+      // We want to wrap the distinct text content of the LI in a span, 
+      // without affecting the nested UL/OL which might contain other languages.
+      const listItems = document.querySelectorAll('.markdown-section li');
+      listItems.forEach(li => {
+        // Collect nodes that are part of this list item's direct content
+        const contentNodes = [];
+        let hasSubList = false;
         
-        if (hasChinese) {
-          el.classList.add('is-zh');
-        } else {
-          el.classList.add('is-en');
+        // Iterate over child nodes to find content vs sublists
+        const children = Array.from(li.childNodes);
+        for (const node of children) {
+          if (node.nodeName === 'UL' || node.nodeName === 'OL') {
+            hasSubList = true;
+            // Recursively process this sublist isn't needed here as querySelectorAll gets all li's flattening the tree
+            continue; 
+          }
+          // We include text nodes, and inline elements (strong, em, code, etc.)
+          contentNodes.push(node);
+        }
+
+        if (contentNodes.length > 0) {
+          // Check if already wrapped to prevent infinite recursion on re-renders
+          if (li.querySelector('.lang-wrapper')) return;
+
+          // Extract text for classification
+          let textContent = "";
+          contentNodes.forEach(n => textContent += n.textContent);
+          
+          if (!textContent.trim()) return;
+
+          // Determine Language
+          const isZh = /[\u4e00-\u9fa5]/.test(textContent);
+          const langClass = isZh ? 'is-zh' : 'is-en';
+          
+          // Create Wrapper
+          const span = document.createElement('span');
+          span.classList.add('lang-content', 'lang-wrapper', langClass); // added lang-wrapper marker
+          
+          // Insert span before the first content node (to keep position)
+          if (contentNodes[0] && contentNodes[0].parentNode === li) {
+              li.insertBefore(span, contentNodes[0]);
+              // Move nodes into wrapper
+              contentNodes.forEach(node => span.appendChild(node));
+          }
         }
       });
+    }
+
+    function classifyAndApply(el) {
+      if (el.classList.contains('is-zh') || el.classList.contains('is-en')) return;
+      
+      const text = el.innerText;
+      // Skip empty blocks
+      if (!text.trim()) return;
+
+      const hasChinese = /[\u4e00-\u9fa5]/.test(text);
+      if (hasChinese) {
+        el.classList.add('is-zh');
+      } else {
+        el.classList.add('is-en');
+      }
     }
 
     function setLang(lang) {
