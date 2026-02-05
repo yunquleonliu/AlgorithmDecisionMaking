@@ -71,6 +71,11 @@
       subMaxLevel: 3,
       auto2top: true,
       
+      // Enable GFM line breaks to turn newlines into <br>, helping our splitter
+      markdown: {
+        breaks: true,
+      },
+
       plugins: [
         function(hook, vm) {
           hook.doneEach(function() {
