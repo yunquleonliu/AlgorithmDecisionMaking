@@ -269,7 +269,70 @@ Combining with the planning of Volume 2, we can integrate the above theory into 
     A section on "Sentinels" can be added. Sentinels are essentially there to simplify the "Boundary Condition" of the Loop Invariant, making the semantics within the loop body purer (no need to check null or boundary every time).
 
 ---
+
 **附：核心语录**
 **Appendix: Core Quote**
 > "The only effective way to raise the confidence level of a program is no longer to treat its correctness as a posteriori derived property, but to secure it by construction."
 > — Edsger W. Dijkstra
+
+关于 Invariant（不变性） 与 Semantics（语义） 在算法设计与优化中的原则，其理论根基深植于 20 世纪 60-70 年代的程序验证（Program Verification）与公理语义学（Axiomatic Semantics）。
+
+以下是关于这一领域的理论演进、核心贡献者及关键文献的简要综述：
+
+---
+
+### 1. 奠基时代：不变性概念的诞生
+
+不变性作为算法正确性的支柱，最早由以下两位先驱确立：
+
+*   **Robert W. Floyd (1967)**：
+    在论文 《Assigning Meanings to Programs》 中，他首次提出了用“标注”的方法来证明程序的正确性。他建议在流程图的每一条边上标注一个断言（Assertion），这个断言在程序运行到此处时必须为真。这实际上就是语义（Meaning）与逻辑断言挂钩的开端。
+
+*   **C.A.R. Hoare (1969)**：
+    他在 《An Axiomatic Basis for Computer Programming》 中提出了著名的 Hoare Triple（霍尔三元组）：$\{P\} C \{Q\}$。
+    *   $P$ 是前置条件，$Q$ 是后置条件，而 $C$ 是命令。
+    *   在循环结构中，他引入了 Loop Invariant（循环不变性）。这是算法优化的核心：无论循环内部如何优化，只要维持不变性，就能保证从 $P$ 推导出 $Q$。
+
+---
+
+### 2. 演进与系统化：结构化编程与精化演算
+
+随着计算机科学的发展，这些原则被引入到算法设计论中：
+
+*   **Edsger W. Dijkstra (1976)**：
+    在他的名著 《A Discipline of Programming》 中，他提出了**弱前置条件（Weakest Precondition）**理论。Dijkstra 强调：算法设计不是写完代码再验证，而是应该从不变性出发去“构造”算法。 他认为算法优化本质上是在不改变“不变性”的前提下，寻找更高效的谓词转换。
+
+*   **Niklaus Wirth**：
+    其经典著作 《Algorithms + Data Structures = Programs》 将语义与数据结构紧密结合。他强调了抽象数据类型（ADT）的语义不变性，即无论内部实现如何优化（比如从数组换成平衡树），其对外呈现的逻辑语义（Invariant）必须恒定。
+
+---
+
+### 3. 算法优化原则的理论化：程序精化
+
+如何从一个高层语义（慢算法）演变成一个底层实现（快算法）？
+
+*   **Ralph-Johan Back & Carroll Morgan (1980s-90s)**：
+    他们发展了 Refinement Calculus（精化演算）。这一理论明确提出：优化即精化（Optimization as Refinement）。
+    *   原则： 如果程序 $S'$ 精化了程序 $S$（记作 $S \sqsubseteq S'$），那么 $S'$ 必须保持 $S$ 的所有语义性质。
+    *   这为编译器优化提供了数学基础：编译器进行的任何等价变换（如死代码消除、循环不变式外提）都必须证明其不破坏语义不变性。
+
+---
+
+### 4. 核心贡献者总结
+
+| 贡献者 | 核心贡献 | 视角 |
+| :--- | :--- | :--- |
+| **Robert Floyd** | 流程图断言 | 开启了将逻辑属性与程序执行挂钩的先河 |
+| **C.A.R. Hoare** | 霍尔逻辑、循环不变性 | 确立了算法正确性与语义的数学契约 |
+| **E.W. Dijkstra** | 守卫命令、谓词转换 | 倡导“由不变性推导算法”的构造主义 |
+| **Barbara Liskov** | 里氏替换原则 (LSP) | 将语义不变性扩展到类型系统和对象行为 |
+
+---
+
+### 5. 结论：优化的现代视角
+
+在现代算法优化（如高性能计算、LLVM 编译器设计）中，这些经典原则演变为 "Preserving Program Semantics"（保持程序语义）。
+
+1.  **语义守恒原则**： 优化操作不得改变程序的“可观察行为”。
+2.  **不变性驱动**： 在并行计算中，为了提高效率（如使用 Atomic 或无锁结构），核心挑战就在于如何在高度动态的环境中，通过极其复杂的协议维持住那份“语义不变量”。
+
