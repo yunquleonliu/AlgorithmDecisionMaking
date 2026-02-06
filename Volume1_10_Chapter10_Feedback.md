@@ -8,10 +8,6 @@
 > "我们不从经验中学习……我们从对经验的反思中学习。"  
 > —— John Dewey
 
-> "Pain + Reflection = Progress."  
-> "痛苦 + 反思 = 进步。"  
-> —— Ray Dalio, *Principles*
-
 在上一章，我们搭建了一张巨大的网（神经网络）。现在的问题是：这张初始的网是**乱连接**的（随机初始化）。如果你问它“1+1等于几”，它可能会自信地回答“香蕉”。
 In the previous chapter, we built a huge net (Neural Network). The problem now is: this initial net is **randomly connected** (Random Initialization). If you ask it "what is 1+1", it might confidently answer "Banana".
 
