@@ -106,57 +106,113 @@ This book is divided into two volumes, covering **Mental Models** and **Technica
 *   **决策智慧**：不要追求“零风险”，那会导致系统僵化。要追求“在打击中恢复”的能力。拥有 Plan B（冗余）不是浪费，是生存成本。
 *   **Decision Wisdom**: Do not pursue "Zero Risk", as it leads to system rigidity. Pursue the ability to "recover from shocks". Having a Plan B (Redundancy) is not waste; it is the cost of survival.
 
+## Part II: 智能与演化 (The Loop: Intelligence & Evolution)
+
+### **Chapter 9: 松弛 (Relaxation) —— 修正的艺术**
+*   **核心问题**：如果一开始就错了怎么办？
+*   **Core Question**: What if I was wrong from the start?
+*   **算法原理**：Bellman-Ford、三角形不等式。
+*   **Algorithmic Principle**: Bellman-Ford, Triangle Inequality.
+*   **决策智慧**：从完美的“规划者”变成谦卑的“修正者”。允许初始状态是错误的，只要不断进行松弛操作（Relaxation），最终会收敛到真理。
+*   **Decision Wisdom**: From a perfect "Planner" to a humble "Corrector". Allow the initial state to be wrong; as long as you constantly perform Relaxation, you will eventually converge to the truth.
+
+### **Chapter 10: 反馈 (Feedback) —— 责任的链条**
+*   **核心问题**：当结果出错时，谁该负责？
+*   **Core Question**: Who is responsible when things go wrong?
+*   **算法原理**：Backpropagation（反向传播）、Chain Rule（链式法则）。
+*   **Algorithmic Principle**: Backpropagation, Chain Rule.
+*   **决策智慧**：区分运气（Beta）和实力（Alpha）。建立有效的归因机制，防止“梯度消失”（大企业病），确保最末端的错误能传回顶层决策大脑。
+*   **Decision Wisdom**: Distinguish Luck (Beta) from Skill (Alpha). Establish an effective attribution mechanism to prevent "Gradient Vanishing" (Big Company Disease) and ensure edge errors propagate back to the decision brain.
+
+### **Chapter 11: 梯度 (Gradient) —— 盲目的勇气**
+*   **核心问题**：如果我看不到全局地形，该怎么走？
+*   **Core Question**: How to move if I can't see the global terrain?
+*   **算法原理**：SGD（随机梯度下降）、Momentum（动量）。
+*   **Algorithmic Principle**: SGD, Momentum.
+*   **决策智慧**：小步快跑，拥抱随机性。不要等全量信息（Full Batch），利用随机噪声（Stochastic）跳出局部最优，利用动量（Momentum）保持长期主义的惯性。
+*   **Decision Wisdom**: Small steps, fast run, embrace stochasticity. Don't wait for Full Batch info; use Stochastic noise to escape local optima, and use Momentum to maintain long-term inertia.
+
+### **Chapter 12: 连接 (Connections) —— 智慧的涌现**
+*   **核心问题**：智慧到底藏在哪里？
+*   **Core Question**: Where does intelligence hide?
+*   **算法原理**：Connectionism（连接主义）、Distributed Representation（分布式表达）、Non-linearity（非线性激活）。
+*   **Algorithmic Principle**: Connectionism, Distributed Representation, Non-linearity.
+*   **决策智慧**：天才不是招来的，是连出来的。智慧不在单个神经元里，而在连接的权重中。通过非线性激活（有原则的局限），涌现出群体智慧。
+*   **Decision Wisdom**: Genius is not hired, but connected. Intelligence lies not in a single neuron, but in the weights of connections. Through non-linear activation (principled boundaries), collective intelligence emerges.
+
+### **Chapter 13: 注意力 (Attention) —— 平行的智慧**
+*   **核心问题**：在信息的海洋中，什么才是重要的？
+*   **Core Question**: What is important in the ocean of information?
+*   **算法原理**：Transformer、Self-Attention（自注意力）、Scaling Law。
+*   **Algorithmic Principle**: Transformer, Self-Attention, Scaling Law.
+*   **决策智慧**：打破层级（RNN），拥抱并行。建立全员可见的透明场域。你关注了谁，你就和谁建立了连接，你就是谁。
+*   **Decision Wisdom**: Break hierarchy (RNN), embrace parallelism. Build an all-hands transparent field. Who you attend to, you connect with; and who you connect with, you become.
+
+### **Chapter 14: 结语 (Epilogue) —— 不仅是计算，更是生存**
+
 ---
 
-## 💻 Volume II: 算法设计艺术 (9 Chapters)
+## 💻 Volume II: 算法设计艺术 (13 Chapters)
+
+### **Part I: The Architecture of Certainty (确定性的架构)**
+*(专注于精确解、逻辑推导和不变性)*
 
 ### **Chapter 1: 算法设计导论 (Surgery on Solution Space)**
 *   **核心思想**：算法设计不是堆砌代码，而是对“解空间”进行手术。
-*   **Core Idea**: Algorithm design is not about piling up code, but performing surgery on the "Solution Space".
-*   **五大手术刀**：搜索、剪枝、合并、贪心、切分。这是所有算法设计的元逻辑。
-*   **The Five Scalpels**: Search, Prune, Merge, Greedy, Split. These are the meta-logics of all algorithm design.
 
 ### **Chapter 2: 消除的艺术 (Pair Cancellation)**
-*   **Desgin Pattern**：化繁为简。
-*   **Design Pattern**: Simplifying complexity.
-*   **Mastery**：摩尔投票 (Vote)、栈的对消 (Stack)、异或 (XOR)。让数据自己相互抵消，从而降低复杂度。
-*   **Mastery**: Boyer-Moore Voting, Stack Cancellation, XOR. Let data cancel itself out to reduce complexity.
+*   **Mastery**：摩尔投票 (Vote)、栈的对消 (Stack)、异或 (XOR)。
 
 ### **Chapter 3: 规范化 (Canonicalization)**
-*   **Design Pattern**：寻找代表。
-*   **Design Pattern**: Finding the Representative.
-*   **Mastery**：哈希键设计、树的同构、并查集 (Union-Find)。为每一个“等价类”找到唯一的代表元素。
-*   **Mastery**: Hash Key Design, Tree Isomorphism, Union-Find. Find a unique representative element for each "Equivalence Class".
+*   **Mastery**：并查集 (Union-Find)、哈希键设计。
 
 ### **Chapter 4: 降维打击 (Dimensional Reduction)**
-*   **Design Pattern**：从高维到低维。
-*   **Design Pattern**: From High Dimension to Low Dimension.
-*   **Mastery**：前缀和 (Prefix Sum)、差分数组 (Difference Array)。把 O(N) 的区间询问转化为 O(1) 的点查询。
-*   **Mastery**: Prefix Sum, Difference Array. Transform O(N) interval queries into O(1) point queries.
+*   **Mastery**：前缀和 (Prefix Sum)、差分数组 (Difference Array)。
 
 ### **Chapter 5: 瓶颈与移动 (Bottleneck & Pointers)**
-*   **Design Pattern**：利用单调性。
-*   **Design Pattern**: Exploiting Monotonicity.
-*   **Mastery**：双指针 (Two Pointers)、滑动窗口 (Sliding Window)。只向有希望的方向移动，绝不回头。
-*   **Mastery**: Two Pointers, Sliding Window. Move only in promising directions, never look back.
+*   **Mastery**：双指针 (Two Pointers)、滑动窗口 (Sliding Window)。
 
 ### **Chapter 6: 动态规划设计 (Structuring DP)**
-*   **Design Pattern**：有向无环图（DAG）上的最短路。
-*   **Design Pattern**: Shortest Path on a Directed Acyclic Graph (DAG).
-*   **Mastery**：状态定义的艺术、转移方程、空间压缩。这是将指数级问题降维成多项式级问题的终极武器。
-*   **Mastery**: The Art of State Definition, Transition Equations, Space Compression. This is the ultimate weapon to reduce exponential problems to polynomial ones.
+*   **Mastery**：状态定义、转移方程、空间压缩。
 
 ### **Chapter 7: 系统化搜索 (Systematic Search)**
-*   **Design Pattern**：逻辑完备的穷举。
-*   **Design Pattern**: Logically complete exhaustion.
-*   **Mastery**：Backtracking (如何优雅地反悔)、Pruning (剪枝的三种境界)。在搜索树中只访问必要的节点。
-*   **Mastery**: Backtracking (How to regret elegantly), Pruning (The Three Realms of Pruning). Visit only necessary nodes in the search tree.
+*   **Mastery**：Backtracking、Pruning (剪枝)。
 
 ### **Chapter 8: 图与网络 (Graph Perspectives)**
-*   **Design Pattern**：关系大于实体。
-*   **Design Pattern**: Relationships > Entities.
-*   **Mastery**：拓扑排序（Topological Sort）、最短路、连通性。不仅看节点，更要看边。
-*   **Mastery**: Topological Sort, Shortest Path, Connectivity. Look not just at nodes, but at edges.
+*   **Mastery**：拓扑排序、连通性。
+
+### **Part II: The Engineering of Uncertainty (不确定性的工程)**
+*(用经典工程案例，映射 AI 与复杂系统的思想)*
+
+### **Chapter 9: 随机的力量 (Randomized Algorithms)**
+*   **Design Pattern**：随机性作为一种 Feature。
+*   **Engineering Case**：**Reservoir Sampling (蓄水池抽样)**。
+*   **Code**: 如何从无限的流数据中，均匀随机地抽取 100 个样本？
+*   **The Math**: Monte Carlo 方法的工程投影。随机不是捣乱，而是对抗“最坏情况”的武器。
+
+### **Chapter 10: 模糊的艺术 (Probabilistic Data Structures)**
+*   **Design Pattern**：牺牲精度换空间。
+*   **Engineering Case**：**Bloom Filter (布隆过滤器)**。
+*   **Code**: 如何用极小的内存判断一个网址是否被访问过？
+*   **The Math**: Distributed Representation (分布式表达)。知识被弥散存储在 BitArray 中，就像记忆在神经网络中一样。
+
+### **Chapter 11: 启发式搜索 (Heuristic Search) —— A* 即离散世界的 SGD**
+*   **Design Pattern**：直觉指引方向。
+*   **Engineering Case**：**A* 算法**（游戏寻路）。
+*   **Code**: `PriorityQueue + Cost Function`。让搜索不再盲目。
+*   **The Math**: **SGD (随机梯度下降)** 的离散版。启发函数 H(n) 就是梯度，指引我们向着“看起来最好”的方向前进。
+
+### **Chapter 12: 遗忘的智慧 (Caching & Attention)**
+*   **Design Pattern**：有限注意力的管理。
+*   **Engineering Case**：**LRU Cache (最近最少使用缓存)**。
+*   **Code**: `HashMap + DoublyLinkedList`。
+*   **The Math**: **Attention Mechanism (注意力机制)**。KV Cache 的原型。谁最近被关注，谁就留下；被冷落的，就遗忘。
+
+### **Chapter 13: 系统的呼吸 (Feedback & Resilience)**
+*   **Design Pattern**：负反馈控制。
+*   **Engineering Case**：**Rate Limiter (限流器)** & **Backoff (退避)**。
+*   **Code**: Token Bucket (令牌桶) 算法。
+*   **The Math**: **Control Theory (控制论)**。系统必须有 pain signal (丢包/限流)，才能维持稳态。
 
 Appendix A：Theoretical Foundation
 Appendix B: 算法五大视角 (The Five Worlds)**
