@@ -2,9 +2,11 @@
 # Chapter 11: Connections — The Emergence of Intelligence
 
 > "The whole is greater than the sum of its parts."  
+> "整体大于部分之和。"  
 > —— Aristotle
 
 > "Quantity has a quality all its own."  
+> "数量本身就是一种质量。"  
 > —— Joseph Stalin
 
 在人工智能的历史上，曾发生过一场长达半个世纪的战争：**符号主义 (Symbolism)** vs **连接主义 (Connectionism)**。

@@ -2,6 +2,7 @@
 # Chapter 03: Dynamic Programming (DP) — When to Forget History
 
 > "The past is a foreign country; they do things differently there."  
+> "过去是一个陌生的国度；那里的人做事方式与我们不同。"  
 > —— L.P. Hartley
 
 在人类社会中，“坚持”通常被视为一种绝对的美德。我们被反复教导：不要轻言放弃，要对得起过去的付出，再坚持一下也许就是黎明。

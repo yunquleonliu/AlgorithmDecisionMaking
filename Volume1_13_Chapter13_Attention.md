@@ -1,10 +1,11 @@
-﻿# 第十三章：注意力 (Attention) —— 平行的智慧
-# Chapter 13: Attention — The Wisdom of Parallelism
+﻿# 第十三章：注意力 (Attention) —— 并行的力量
+# Chapter 13: Attention — The Power of Parallelism
 
 > "Attention is all you need."  
 > —— Vaswani et al. (The paper that introduced Transformer)
 
 > "The true currency of the digital age is not data, but attention."
+> "数字时代的真正货币不是数据，而是注意力。"
 
 在人工智能的进化树上，**Transformer** 的出现（2017年）是一个类似“寒武纪大爆发”的时刻。在此之前，AI 虽然也能说话、能翻译（通过 RNN/LSTM），但它们都患有一种严重的“阅读障碍”和“健忘症”。
 

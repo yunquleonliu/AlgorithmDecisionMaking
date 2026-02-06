@@ -2,6 +2,7 @@
 # Chapter 01: Introduction to Algorithm Design — Surgery on the Solution Space
 
 > "A program is a proof that can be executed."  
+> "程序是可执行的证明。"  
 > —— Donald Knuth
 
 在 Volume I 中，我们讨论了算法的“道”——如何像计算机一样思考决策。

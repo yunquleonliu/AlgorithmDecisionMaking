@@ -2,8 +2,10 @@
 # Chapter 12: Feedback — The Chain of Responsibility
 
 > "Pain is the teacher. But only if you listen."
+> "痛苦是最好的老师。但前提是你愿意倾听。"
 
 > "We do not learn from experience... we learn from reflecting on experience."  
+> "我们不从经验中学习……我们从对经验的反思中学习。"  
 > —— John Dewey
 
 在上一章，我们搭建了一张巨大的网（神经网络）。现在的问题是：这张初始的网是**乱连接**的（随机初始化）。如果你问它“1+1等于几”，它可能会自信地回答“香蕉”。

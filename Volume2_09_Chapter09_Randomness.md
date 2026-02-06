@@ -1,11 +1,10 @@
 ﻿# 第九章：随机的力量 (Randomized Algorithms) —— 随机是对抗偏见的武器
 # Chapter 9: The Power of Randomness — Randomness is the Weapon Against Bias
 
-> **Core Concept**: **随机不是混乱，而是公平。** 当数据流无限且未知时，只有随机性能对抗“最坏情况” (Worst Case)。
-> **Core Concept**: **Randomness is not chaos; it is fairness.** When the data stream is infinite and unknown, only randomness can fight against the "Worst Case".
-
 > "God does not play dice with the universe." —— Einstein
+> "上帝不和宇宙玩骰子。" —— Einstein
 > "But computer scientists do." —— Knuth
+> "但是计算机科学家玩。" —— Knuth
 
 在 Volume 1 中，我们要么在追求**确定性**（DP, Greedy），要么在利用**梯度**（SGD）。
 In Volume 1, we were either pursuing **Determinism** (DP, Greedy) or utilizing **Gradients** (SGD).
@@ -13,6 +12,9 @@ In Volume 1, we were either pursuing **Determinism** (DP, Greedy) or utilizing *
 
 今天，我们要解决一个在“大数据流”场景下极其经典的问题：**蓄水池抽样 (Reservoir Sampling)**。
 
+**随机不是混乱，而是公平。** 当数据流无限且未知时，只有随机性能对抗“最坏情况” (Worst Case)。
+**Randomness is not chaos; it is fairness.** When the data stream is infinite and unknown, only randomness can fight against the "Worst Case".
+> 
 ## 一、无限与未知的挑战
 ## I. The Challenge of the Infinite and Unknown
 

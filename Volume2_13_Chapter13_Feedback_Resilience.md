@@ -1,10 +1,8 @@
 ﻿# 第十三章：系统的呼吸 (Feedback & Resilience) —— 限流即也是一种保护
 # Chapter 13: The Breath of Systems (Feedback & Resilience) — Limiting is Protecting
 
-> **Core Concept**: **如果你不能控制它，那就限制它。** 没有任何系统能承载无限的压力。与其在过载中崩溃，不如优雅地拒绝。
-> **Core Concept**: **If you can't control it, limit it.** No system can bear infinite pressure. Better to reject elegantly than to crash in overload.
-
-> "Stability is not the absence of change, but the ability to cope with it."
+> "Stability is not the absence of change, but the ability to cope with it."  
+> "稳定不是没有变化，而是应对变化的能力。"  
 
 在 Volume 1 的 **"Feedback"** 章节，我们讨论了正反馈（爆炸）和负反馈（稳定）。
 In Volume 1's chapter on **"Feedback"**, we discussed Positive Feedback (Explosion) and Negative Feedback (Stability).
@@ -16,6 +14,9 @@ In the engineering world, **Negative Feedback** is the foundation of system surv
 今天，我们要实现互联网基础设施中最不起眼但最重要的组件——**限流器 (Rate Limiter)**。
 Today, we will implement the most humble yet most critical component of internet infrastructure—**The Rate Limiter**.
 
+**如果你不能控制它，那就限制它。** 没有任何系统能承载无限的压力。与其在过载中崩溃，不如优雅地拒绝。
+**If you can't control it, limit it.** No system can bear infinite pressure. Better to reject elegantly than to crash in overload.
+ 
 ## 一、当潮水涌来
 ## I. When the Tide Comes
 

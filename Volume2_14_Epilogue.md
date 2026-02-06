@@ -2,6 +2,7 @@
 # Epilogue: The Awakening of the Algorithm Engineer — From Calculator to Designer
 
 > "The function of good software is to make the complex appear to be simple."  
+> "好的软件的作用是让复杂的事物看起来简单。"  
 > —— Grady Booch
 
 至此，**《写给未来技术领袖的算法讲义·第二卷：设计之道》** 的旅程正式结束。

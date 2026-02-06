@@ -2,9 +2,11 @@
 # Chapter 05: Probability — Calculating by Rolling Dice
 
 > "It is a scientific fact that the future is unpredictable. ... So, the only way to prepare for the future is to create a future that is robust."  
+> "未来不可预测，这是一个科学事实……因此，为未来做准备的唯一方式，就是创造一个具有鲁棒性（Robust）的未来。"  
 > —— A Consensus in Modern Complexity Theory (or inspired by Stanislaw Ulam)
 
 > "The probable is what usually happens."  
+> "大概率事件通常会发生。"  
 > —— Aristotle
 
 人类的大脑天生厌恶不确定性。我们喜欢因果律，喜欢“如果...就...”，喜欢如同精密钟表一样的牛顿式宇宙。然而，现实世界更像是混沌的。当我们试图用“确定性思维”去规划一个充满变数的人生项目（比如创业、投资、或者抚养孩子）时，我们不仅会陷入焦虑，还经常会犯下大错。

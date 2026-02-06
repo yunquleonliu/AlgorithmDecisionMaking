@@ -2,9 +2,11 @@
 # Chapter 8: Robustness — Embracing Surprise and Shock
 
 > "Wind extinguishes a candle and energizes fire."  
+> "风会熄灭蜡烛，却能使火越烧越旺。"  
 > —— Nassim Nicholas Taleb
 
 > "Anything that can go wrong will go wrong."  
+> "任何可能出错的事情，终将出错。"  
 > —— Murphy's Law
 
 我们在前七章探讨了如何计算最优解、如何博弈、如何搜索。但所有这些策略都有一个隐含的前提：**假设舞台本身是稳定的**。

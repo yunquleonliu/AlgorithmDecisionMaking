@@ -2,9 +2,11 @@
 # Chapter 09: Relaxation — The Art of Correction
 
 > "A person who never made a mistake never tried anything new."  
+> "从未犯错的人，是因为从未尝试新事物。"  
 > —— Albert Einstein
 
 > "Truth arises from error."  
+> "真理源于谬误。"  
 > —— Francis Bacon
 
 我们在前几章讨论的算法，无论是贪心、动态规划还是搜索，都有一个隐含的假设：**我们是一次性把事情做对的。**
@@ -67,7 +69,7 @@ But in the Cyclic world, we pursue **Sculpting**: You are facing a rough stone (
 **决策智慧**：
 **Decision Wisdom**:
 
-大多数人的痛苦，源于试图在充满不确定性的世界里，强行使用 DAG 式的完美规划。
+试图在充满不确定性的世界里，强行使用 DAG 式的完美规划，给自己制造了大多数的痛苦。
 Most people's suffering comes from trying to force DAG-style perfect planning in a world full of uncertainty.
 *   “我看不到未来 10 年的最优解，所以我不敢动。” -> 这是 DAG 思维的瘫痪。
     *   "I can't see the optimal solution for the next 10 years, so I dare not move." -> This is the paralysis of DAG thinking.

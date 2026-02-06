@@ -1,10 +1,8 @@
 ﻿# 第十二章：遗忘的智慧 (Caching & Attention) —— LRU 即有限记忆的注意力
 # Chapter 12: The Wisdom of Forgetting (Caching & Attention) — LRU is Attention with Finite Memory
 
-> **Core Concept**: **LRU 缓存是最简单的注意力机制 (Attention Mechanism)。** 只要被“关注”（访问），就移到 C 位；如果长期无人问津，就被遗忘。
-> **Core Concept**: **LRU Cache is the simplest Attention Mechanism.** As long as you are "attended to" (accessed), you move to the Center Stage; if ignored for too long, you are forgotten.
-
 > "The art of being wise is the art of knowing what to overlook."  
+> "智慧的艺术，就是懂得该忽略什么的艺术。"  
 > —— William James
 
 在 Volume 1 中，我们讨论了 **“注意力 (Attention)”**：在信息的海洋中，你无法处理所有数据，必须学会**聚焦**。
@@ -18,6 +16,9 @@ In engineering implementation, we face the same challenge: **Memory is finite, b
 今天，我们将通过实现最著名的缓存算法——**LRU (Least Recently Used)**，来理解“遗忘”对智能的重要性。
 Today, we will implement the most famous caching algorithm—**LRU (Least Recently Used)**—to understand the importance of "forgetting" for intelligence.
 
+**LRU 缓存是最简单的注意力机制 (Attention Mechanism)。** 只要被“关注”（访问），就移到 C 位；如果长期无人问津，就被遗忘。
+**LRU Cache is the simplest Attention Mechanism.** As long as you are "attended to" (accessed), you move to the Center Stage; if ignored for too long, you are forgotten.
+> 
 ## 一、记忆的危机
 ## I. The Crisis of Memory
 

@@ -2,6 +2,7 @@
 # Chapter 07: Dynamic Programming — The Flux of State
 
 > "Those who cannot remember the past are condemned to repeat it."  
+> "那些不能铭记过去的人，被判处去重复过去。"  
 > —— Dynamic Programming Motto
 
 很多初学者觉得 DP 是玄学：突然画个表，填几个数，答案就出来了。

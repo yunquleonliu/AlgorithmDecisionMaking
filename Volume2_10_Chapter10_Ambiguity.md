@@ -2,6 +2,7 @@
 # Chapter 10: The Art of Ambiguity — Bloom Filter & Distributed Memory
 
 > "Better to be roughly right than precisely wrong."  
+> "与其精确地犯错，不如大致地正确。"  
 > —— John Maynard Keynes
 
 在计算机科学中，通常我们追求 **100% 正确**（Hash Map, Binary Search Tree）。

@@ -2,9 +2,11 @@
 # Epilogue: More Than Computation, It’s Survival
 
 > "We shape our tools and thereafter our tools shape us."  
+> "我们塑造了工具，而后工具塑造了我们。"  
 > —— Marshall McLuhan
 
 > "The question of whether a computer can think is no more interesting than the question of whether a submarine can swim."  
+> "机器能否思考的问题，就像潜水艇能否游泳一样，毫无意义。"  
 > —— Edsger W. Dijkstra
 
 当我们站在 Volume 1 的终点回望，你会发现我们走过了一条漫长的认知升级之路。

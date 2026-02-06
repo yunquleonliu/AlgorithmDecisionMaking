@@ -2,6 +2,7 @@
 # Chapter 04: Search — The 37% Rule of Love
 
 > "Maximizing is a difficult cognitive task... Satisficing, finding an alternative that is 'good enough', is much easier and often smarter."
+> "追求最大化是一项艰难的认知任务……满意化（Satisficing），即寻找一个‘足够好’的替代方案，要容易得多，往往也更明智。"
 > —— Herbert A. Simon (Turing Award Winner & Nobel Laureate)
 
 在所有的人生决策中，最令人焦虑的莫过于“寻找伴侣”。

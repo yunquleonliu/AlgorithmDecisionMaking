@@ -1,7 +1,8 @@
 ﻿# 第五章：滑动窗口 (Sliding Window) —— 伸缩的视野
 # Chapter 05: Sliding Window — The Expanding and Contracting Vision
 
-> "The only way to find specific information in a sea of data is to filter it through a moving frame of reference."
+> "The only way to find specific information in a sea of data is to filter it through a moving frame of reference."  
+> "在数据海洋中寻找特定信息的唯一方法，就是通过一个移动的参照系来过滤它。"  
 
 很多数组/字符串题目要求我们寻找一个**连续子数组 (Subarray)** 满足特定条件。暴力做法是枚举所有起点 $i$ 和终点 $j$，复杂度 $O(N^2)$。
 

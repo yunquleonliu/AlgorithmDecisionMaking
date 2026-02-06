@@ -167,6 +167,12 @@
       const blocks = document.querySelectorAll('.markdown-section p, .markdown-section blockquote');
       blocks.forEach(el => {
         if (el.classList.contains('lang-processed')) return;
+
+        // Skip if contains math (KaTeX)
+        if (el.querySelector('.katex') || el.innerHTML.includes('katex')) {
+           classifyElement(el);
+           return;
+        }
         
         // Check for BR tags indicating line breaks in blockquotes
         const hasBr = el.querySelector('br');
@@ -253,6 +259,13 @@
 
     function classifyElement(el) {
       if (el.classList.contains('lang-processed')) return;
+      
+      // Do not hide Math elements
+      if (el.querySelector('.katex') || el.classList.contains('katex-display')) {
+          el.classList.add('lang-processed');
+          return;
+      }
+
       const text = el.innerText;
       if (!text.trim()) return;
       

@@ -1,10 +1,8 @@
 ﻿# 第十一章：启发式搜索 (Heuristic Search) —— A* 即离散世界的 SGD
 # Chapter 11: Heuristic Search — A* is the SGD of the Discrete World
 
-> **Core Concept**: **A* 算法本质上就是离散世界里的“梯度下降” (SGD)。**  
-> **Core Concept**: **A* is essentially Stochastic Gradient Descent (SGD) in a discrete world.**
-
 > "Logic will get you from A to B. Imagination will take you everywhere."  
+> "逻辑会把你从 A 带到 B，想象力会带你去任何地方。"  
 > —— Albert Einstein
 
 在 Volume 1 中，我们在**“梯度 (Gradient)”**一章中学到了：当你看不到全局地图时，沿着“最陡”的方向走（SGD）是你唯一的选择。

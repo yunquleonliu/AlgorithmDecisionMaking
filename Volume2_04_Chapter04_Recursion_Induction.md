@@ -2,6 +2,7 @@
 # Chapter 04: Recursion & Induction — The Recursive Leap of Faith
 
 > "To understand recursion, you must first understand recursion."  
+> "要理解递归，你首先得理解递归。"  
 > —— Anonymous
 
 如果你问一个初学者“什么是递归”，他会说“函数调用自己”。

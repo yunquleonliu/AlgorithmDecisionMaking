@@ -5,6 +5,24 @@
 
 ---
 
+## 零、概念入门：地图的语言 (Concept Primer: The Language of Maps)
+
+在我们深入这五个世界之前，我们需要统一一套语言。计算机科学家喜欢用“图论 (Graph Theory)”来描述一切，这听起来很吓人，但它其实就是**画地图**。
+
+Before diving into these five worlds, we need a unified language. Computer scientists like to use "Graph Theory" to describe everything. It sounds scary, but it's really just **Map Drawing**.
+
+| 术语 (Term) | 隐喻 (Metaphor) | 解释 (Explanation) |
+| :--- | :--- | :--- |
+| **状态 (State / Node)** | **地点 / 存档点** (Location / Save Point) | 你现在在哪？或者你现在的“存款+生命值”是多少？在这个点上，世界是静止的快照。 <br> Where are you? Or what is your current "Savings + H P"? At this point, the world is a static snapshot. |
+| **转移 (Transition / Edge)** | **路 / 动作** (Road / Action) | 你做了一个选择（比如“向左走”或“花钱”），这让你从一个状态变到了另一个状态。 <br> You made a choice (e.g., "Go Left" or "Spend Money"), which moved you from one state to another. |
+| **图 (Graph)** | **地图** (Map) | 当我们将所有的“地点”和所有的“路”都画出来，就得到了一张完整的地图。 <br> When we draw all the "Locations" and "Roads", we get a complete Map. |
+| **有向 (Directed)** | **单行道 / 滑梯** (One-way Street / Slide) | 回不去。你只能从上一级走到下一级（比如时间、年龄）。 <br> No return. You can only go from the previous level to the next (e.g., Time, Age). |
+| **无环 (Acyclic)** | **不鬼打墙** (No Loop) | 你永远不会回到同一个状态。如果结合“有向”，这通常意味着你在沿着时间轴前进。 <br> You will never return to the same state. Combined with "Directed", this usually means you are moving along the timeline. |
+| **DAG** | **时光之河** (River of Time) | **有向无环图**。这是最完美的算法结构，意味着问题可以被拆解，且不会死循环。 <br> **Directed Acyclic Graph**. This is the perfect algorithmic structure, meaning problems can be decomposed without infinite loops. |
+| **不变量 (Invariant)** | **北极星** (North Star) | 无论你在地图上怎么走，头顶的北极星永远指向北方。这是保证你迷路时能找回方向的唯一真理。 <br> No matter how you walk on the map, the North Star above always points North. This is the only truth that ensures you can find your way back when lost. |
+
+---
+
 ## 一、算法的五个“世界模型”（World Models）
 ## I. The Five "World Models" of Algorithms
 
