@@ -2,6 +2,7 @@
 # Preface: When Telescopes Become Cheap, Astronomy Has Just Begun
 
 > "Computer science is no more about computers than astronomy is about telescopes."  
+> "计算机科学之于计算机，恰如天文学之于望远镜。"  
 > —— Edsger W. Dijkstra
 
 在今天的技术浪潮中，我们正处于一个奇怪的时刻。

@@ -2,9 +2,11 @@
 # Chapter 06: Approximation — Eliminating the Anxiety of Perfectionism
 
 > "Perfect is the enemy of good."  
+> "完美是优秀的敌人。"  
 > —— Voltaire
 
 > "For many problems of practical interest, finding the optimal solution is computationally intractable. But finding a 'good' solution is often easy."
+> "对于许多实际问题，寻找最优解在计算上是不可行的。但寻找一个‘好’的解往往很容易。"
 
 在现代社会，“追求极致”和“完美主义”往往被包装成一种工匠精神或高标准的体现。但在算法看来，对于某些特定类型的问题，追求完美不仅是愚蠢的，而且是**数学上不可能的**。
 In modern society, "pursuing the ultimate" and "perfectionism" are often packaged as a manifestation of craftsmanship or high standards. But from an algorithmic perspective, for certain types of problems, pursuing perfection is not only stupid but **mathematically impossible**.

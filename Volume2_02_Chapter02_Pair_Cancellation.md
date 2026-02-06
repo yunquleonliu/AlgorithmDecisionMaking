@@ -2,6 +2,7 @@
 # Chapter 02: Pair Cancellation — The Art of Offsetting
 
 > "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away."  
+> "完美的达成，不是当无可复加时，而是当无可删减时。"  
 > —— Antoine de Saint-Exupéry
 
 有些问题看似需要大量储存空间，但如果你仔细观察 **不变性 (Invariant)**，会发现很多元素是可以“相互抵消”的。一旦它们“同归于尽”，我们要处理的问题规模就缩小了。

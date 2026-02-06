@@ -2,6 +2,7 @@
 # Chapter 03: Binary Search — The Ultimate Pruning
 
 > "Search for the truth is the noblest occupation of man; its publication is a duty."  
+> "探寻真理是人类最高贵的职业；而公布真理则是一种责任。"  
 > —— Madame de Stael
 
 如果说算法是对解空间的手术，那么**二分查找 (Binary Search)** 就是其中最精准的“截肢手术”。

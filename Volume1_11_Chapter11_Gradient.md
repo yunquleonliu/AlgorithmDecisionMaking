@@ -2,9 +2,11 @@
 # Chapter 10: Gradient — The Courage of Blindness
 
 > "I have not failed. I've just found 10,000 ways that won't work."  
+> "我没有失败。我只是发现了 10,000 种行不通的方法。"  
 > —— Thomas Edison
 
 > "A journey of a thousand miles begins with a single step."  
+> "千里之行，始于足下。"  
 > —— Lao Tzu
 
 在前几章（如搜索、贪心），我们通常假设算法拥有一张“地图”。

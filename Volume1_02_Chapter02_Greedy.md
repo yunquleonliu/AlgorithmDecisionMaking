@@ -2,6 +2,7 @@
 # Chapter 02: Greedy — When Laziness Wins
 
 > "The best way to prepare for the future is to concentrate with all your intelligence, all your enthusiasm, on doing today's work superbly today."  
+> "为未来做准备的最好方法，就是集中你所有的智慧、所有的热忱，把今天的工作做得尽善尽美。"  
 > —— William Osler
 
 在计算机科学的所有术语中，“贪心算法（Greedy Algorithm）”可能是被误解最深的一个。

@@ -2,6 +2,7 @@
 # Chapter 08: Data Structure Design — The Container of Invariance
 
 > "Bad programmers worry about the code. Good programmers worry about data structures and their relationships."  
+> "烂程序员关心代码。好程序员关心数据结构及其关系。"  
 > —— Linus Torvalds
 
 在前几章中，我们讨论的算法（Algorithm）通常是瞬态的：输入 -> 处理 -> 输出 -> 结束。

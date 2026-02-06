@@ -2,6 +2,7 @@
 # Chapter 01: Three Axioms of Decision Making
 
 > "In theory, there is no difference between theory and practice. But in practice, there is."  
+> "理论上，理论和实践没有区别。但在实践中，有。"  
 > —— Jan L.A. van de Snepscheut
 
 在深入具体的算法策略之前，我们需要先看清其实施的土壤。

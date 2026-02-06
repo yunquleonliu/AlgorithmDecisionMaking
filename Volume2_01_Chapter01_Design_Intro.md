@@ -1,7 +1,8 @@
-﻿# 第一章：算法设计导论 —— 对解空间的手术
-# Chapter 01: Introduction to Algorithm Design — Surgery on the Solution Space
+﻿# 第一章：算法设计通用方法论 —— 对解空间的手术
+# Chapter 01: The Meta-Methodology of Algorithm Design — Surgery on the Solution Space
 
 > "A program is a proof that can be executed."  
+> "程序是可执行的证明。"  
 > —— Donald Knuth
 
 在 Volume I 中，我们讨论了算法的“道”——如何像计算机一样思考决策。
@@ -13,114 +14,112 @@ In Volume II, we shift our focus to the "Art" (Technique) of algorithms—how to
 有时候算法写法是“试凑法”：先写个 `for` 循环，然后通过跑测试用例（Debug）来修修补补。但也有另外一个，常常更好办法。**算法不是“凑”出来，而是被“推导”出来。**
 Many programmers rely on "trial and error": write a `for` loop, run test cases, fix bugs, and repeat. But there is a better way. **Algorithms should not be "patched together"; they should be "derived".**
 
-本章将介绍一套通用的算法设计元方法论：**Invariance-First Design（不变性优先设计）**。
+本章将介绍一套通用的算法设计元方法论：**Invariant-Based Design（不变性优先设计）**。
 This chapter introduces a universal meta-methodology for algorithm design: **Invariance-First Design**.
 
-## 一、解空间 (The Solution Space)
+## 一、四大算法世界观 (The Four Algorithm Worldviews)
 
-算法设计的起点，永远不是“我该用什么数据结构”，而是“问题的解空间长什么样”。
-The starting point of algorithm design should never be "which data structure should I use," but rather "what does the solution space look like."
+按认知模型，算法设计可以划分为四大流派。我们的 Volume 2 主要聚焦于前两类。
+Algorithm design can be categorized into four worldviews based on cognitive models. Volume 2 focuses primarily on the first two.
 
-**解空间**是所有可能答案的集合。
-**The Solution Space** is the set of all possible answers.
-*   对于 `[1, 2, 3]` 的全排列，解空间大小是 $3! = 6$。
-    *   For the permutations of `[1, 2, 3]`, the solution space size is $3! = 6$.
-*   对于 $N$ 个城市的 TSP 问题，解空间大小是 $N!$。
-    *   For the Traveling Salesman Problem (TSP) with $N$ cities, the solution space size is $N!$.
+| 类别 (Category) | 核心信念 (Core Belief) | 正确性来源 (Source of Correctness) |
+| :--- | :--- | :--- |
+| **Invariant-Based** | 结构一旦成立不可逆 (Structure is irreversible) | 结构封闭 (Structural Closure) |
+| **Search-Based** | 没捷径，只能找完备搜索 (No shortcuts, complete search) | 完备性 (Completeness) |
+| **Convergence-Based** | 当前不对，但在变好 (Improving over time) | 收敛性 (Convergence) |
+| **Stochastic-Based** | 世界不确定 (Uncertain world) | 概率 / 期望 (Probability / Expectation) |
 
-**算法的优化，就是推导解空间中寻找目标的高效策略。**
-**The essence of algorithm optimization is deriving an efficient strategy to find the target within this solution space.**
-*   **Brute Force (暴力)**：遍历解空间的每一个点。
-    *   **Brute Force**: Traversing every single point in the solution space.
-*   **Optimization (优化)**：通过逻辑排除掉大部分绝对不可能包含最优解的区域，只访问极小的一部分。
-    *   **Optimization**: Using logic to rule out vast regions that cannot possibly contain the optimal solution, thus visiting only a tiny fraction.
+## 二、核心公式：正确性与效率的双重奏
+## II. The Core Formula: Correctness and Efficiency
 
-我们将算法设计视为对解空间的一次**手术**。
-We view algorithm design as performing **surgery** on the solution space.
+直觉的问题，Brute Force (暴力搜索) 也有 Invariant，也有正确的 Boundary，也能得到正确结果。那它为什么慢？
+Brute Force has invariants and correct boundaries, yet it is slow. Why?
 
-## 二、循环不变性 (Loop Invariant) —— 算法的灵魂
-## II. Loop Invariant — The Soul of the Algorithm
+这引出了算法设计的核心公式：
+This leads to the core formula of algorithm design:
+
+$$
+\text{Efficient Algorithm} = \text{Invariant (Correctness)} + \text{Monotonicity (Efficiency)}
+$$
+
+### 1. Invariant (不变性) —— 算法的方向盘
+### 1. Invariant — The Steering Wheel
 
 如果说算法是一辆车，**循环不变性**就是它的方向盘。它保证了你无论开多远，方向永远是对的。
 If an algorithm is a car, the **Loop Invariant** is its steering wheel. It ensures that no matter how far you drive, you are always heading in the correct direction.
 
-### 什么是 Loop Invariant？
-### What is a Loop Invariant?
-
 它是一个数学陈述（Statement），满足以下性质：
-It is a mathematical statement that satisfies the following properties:
-1.  **初始化 (Initialization)**：在循环开始前，它是真的。
-    *   **Initialization**: It is true before the loop begins.
-2.  **保持 (Maintenance)**：如果在某次迭代开始时它是真的，那么执行完循环体代码后，它依然是真的。
-    *   **Maintenance**: If it is true at the start of an iteration, it remains true after the loop body is executed.
-3.  **终止 (Termination)**：当循环结束时，结合不变性和终止条件，可以直接推导出算法的正确性。
-    *   **Termination**: When the loop terminates, the combination of the invariant and the termination condition implies the correctness of the algorithm.
+*   **初始化 (Initialization)**：在循环开始前，它是真的。
+*   **保持 (Maintenance)**：如果在某次迭代开始时它是真的，那么执行完循环体代码后，它依然是真的。
+*   **终止 (Termination)**：当循环结束时，结合不变性和终止条件，可以直接推导出算法的正确性。
 
-### 为什么要先定义不变性？
-### Why Define Invariants First?
+### 2. Monotonicity (单调性) —— 算法的引擎
+### 2. Monotonicity — The Engine
 
+单调性决定了算法“跑得有多快”。
+Monotonicity determines how fast the algorithm runs.
+
+*   **Weak Monotonicity (Brute Force)**: 每次迭代排除 1 个解。效率 $O(N)$。
+*   **Strong Monotonicity (Efficient Algos)**: 每次迭代排除 $N/2$ 个解（Binary Search），或者每一步都能**永久性**锁定一个局部最优（Greedy）。
+
+## 三、算法的战场：管理“未知区域” (The Unknown Region)
+
+设计算法不仅仅是处理“已知”，更是在管理“未知”。
+Designing algorithms is not just about handling the "Known", but managing the "Unknown".
+
+### 1. 变量即边界 (Variables as Boundaries)
 大多数的 Bug 都是因为 $i$ 和 $j$ 的边界搞错了（Off-by-one error）。这是因为没有定义 $i$ 和 $j$ 的**物理意义**。
-Most bugs arise from off-by-one errors with $i$ and $j$. This happens because the **physical meaning** of $i$ and $j$ was never defined.
+在我们的方法论中：
+*   **Variables ($L, R, mid$)** 的本质是夹逼出 **Unknown Region**。
+*   **Invariant** 不仅约束 Known，也对应 Unknown 的性质（如：Target 必定在 Unknown 区间内）。
 
-**设计法则**：不要先写代码。先用自然语言或数学符号定义：“在第 $k$ 次循环开始时，`arr[0...k-1]` 已经是排好序的。” 这就是不变性 (Invariant)。一旦定义了这个，代码中的每一行（如何移动 $k$，如何交换元素）都必须服务于“维持这个性质”。
-**Design Rule**: Do not write code first. First, define in natural language or mathematical symbols: "At the start of the $k$-th iteration, `arr[0...k-1]` is already sorted." This is the Invariant. Once defined, every line of code (how to move $k$, how to swap elements) must serve to **maintain** this property.
+### 2. 未知的消除 (Reducing the Unknown)
+算法执行的过程，就是 **Unknown 区域不断被压缩直至消失** 的过程。
 
-## 三、变量即边界 (Variables as Boundaries)
+*   **Monotonicity 的物理含义**：确保关每一轮迭代，**Unknown 区域都在严格缩小**。
+    *   在 **Sort Colors** 中：Unknown 区域 $[mid, high]$ 每次减少 1 个元素。
+    *   在 **Binary Search** 中：Unknown 区域 $[L, R]$ 每次减少 $50\%$。
+    *   在 **Select K-th** 中：我们不需要消除所有 Unknown，只需消除“不包含第 K 个”的那部分 Unknown。
 
-在算法设计中，变量（Variables）不是随意的容器，它们是**解空间的边界标记**。
-In algorithm design, variables are not arbitrary containers; they are **boundary markers in the solution space**.
+## 四、数据结构的本质：强制单调性
+## IV. Data Structure: Enforcing Monotonicity
 
-经典的 **荷兰国旗问题 (Dutch National Flag)**：将数组中的红、白、蓝球分类。
-Take the classic **Dutch National Flag Problem**: sorting red, white, and blue balls in an array.
-我们需要的不是想“怎么交换”，而是定义三个指针：
-We don't need to think about "how to swap"; instead, we define three pointers:
-*   `low`: `arr[0...low-1]` 全是红球。
-    *   `low`: `arr[0...low-1]` are all red.
-*   `high`: `arr[high+1...N]` 全是蓝球。
-    *   `high`: `arr[high+1...N]` are all blue.
-*   `mid`: `arr[low...mid-1]` 全是白球。
-    *   `mid`: `arr[low...mid-1]` are all white.
-*   `mid...high`: 未处理区域。
-    *   `mid...high`: The unprocessed region.
+我们为什么要引入 Stack, Heap 或特定的 Tree？
+**数据结构的作用，就是“物理上”限制了 Variable 的自由度，从而强制其行为必须符合某种单调性。**
+**Data structures physically restrict the degrees of freedom of variables, forcing their behavior to comply with specific monotonicity.**
 
-**算法设计的步骤**：
-**Steps for Algorithm Design**:
-1.  **定义区间**：画出上述的区间图。
-    *   **Define Intervals**: Draw the interval diagram described above.
-2.  **定义初始状态**：`low=0, mid=0, high=N-1`（此时红白蓝区域都为空，未处理区域是全集，不变关系成立）。
-    *   **Define Initial State**: `low=0, mid=0, high=N-1` (Red, white, and blue regions are empty; the unprocessed region is the full set; the Invariant holds).
-3.  **设计移动逻辑**：查看 `arr[mid]`（未处理的第一个元素）：
-    *   **Design Movement Logic**: Check `arr[mid]` (the first element of the unprocessed region):
-        *   如果是红，交换 `arr[low]` 和 `arr[mid]`，`low++`, `mid++`（维持红色和白色区间的定义）。
-            *   If red: Swap `arr[low]` and `arr[mid]`, `low++`, `mid++` (maintains red and white definitions).
-        *   如果是白，`mid++`（维持白色区间的定义）。
-            *   If white: `mid++` (maintains white definition).
-        *   如果是蓝，交换 `arr[mid]` 和 `arr[high]`，`high--`（维持蓝色区间的定义）。
-            *   If blue: Swap `arr[mid]` and `arr[high]`, `high--` (maintains blue definition).
-4.  **终止条件**：当 `mid > high` 时，未处理区域为空，排序完成。
-    *   **Termination**: When `mid > high`, the unprocessed region is empty, and sorting is complete.
+*   **Array**: 随意访问，难以保证“只看有用的”。
+*   **Monotonic Stack**: **物理上禁止**了违反单调性的元素存在（入栈即剔除）。
+*   **Priority Queue (Heap)**: 限制只能访问极值，强制维护局部有序。
 
-你会发现，一旦不变性 (Invariant) 和边界定义清楚了，**代码是自动生成的**。你根本不需要“试凑”。
-You will find that once the Invariant and boundaries are clearly defined, **the code generates itself**. There is no need for "trial and error."
+## 五、Invariant-Based 设计框架 (The Design Framework)
 
-## 四、五大手术刀 (The Five Surgical Tools)
+在接下来的每一章中，我们将遵循这四个步骤来“推导”算法：
 
-当我们面对庞大的解空间时，可以通过以下五种操作进行处理：
-When facing a massive solution space, we can operate using these five surgical tools:
+1.  **Boundaries / Variables (Define Unknown)**
+    *   定义清楚 $L, R$ 或 $mid$ 等变量。
+    *   明确它们围成的 **Unknown Region** 是哪一段？(e.g., $[L, R]$)。
+2.  **Semantic Invariant (Define Correctness)**
+    *   在 Unknown 区域必须满足什么承诺？(e.g., Target 若存在必在其中)。
+    *   Known 区域已经满足了什么性质？(e.g., $nums[0...low-1]$ 全是红球)。
+3.  **Reduce Unknown (Define Monotonicity)**
+    *   每一轮如何识别“有序半区”或“特定元素”？
+    *   如何通过移动 Boundaries，使得 Unknown 区域 **严格单调缩小**？
+4.  **Select Structure (Enforcement)**
+    *   既有的变量能否维持单调性？是否需要 Stack/Heap 辅助？
+
+## 六、五大手术刀 (The Five Surgical Tools)
+
+面对庞大的解空间，我们有五把手术刀：
 
 1.  **Search (搜索)**：系统性地遍历（DFS/BFS）。
-    *   **Search**: Systematically traversing (DFS/BFS).
 2.  **Prune (剪枝)**：通过逻辑断言，直接砍掉甚至不需要看一眼的子空间（"如果 A>B，那么 A 的所有子树都不可能是最优解"）。
-    *   **Prune**: Using logical assertions to hack off subspaces that don't even need a glance ("If A > B, then no subtree of A can be the optimal solution").
 3.  **Reduce (归约/降维)**：将问题变换为另一个已知问题（把“最大子矩形”归约为“直方图最大面积”）。
-    *   **Reduce**: Transforming the problem into another known problem (e.g., reducing "Max Submatrix" to "Largest Rectangle in Histogram").
 4.  **Greedy (贪心)**：在每一步都做局部最优，从而收缩解空间。
-    *   **Greedy**: Making locally optimal choices at each step to shrink the solution space.
 5.  **Divide (切分)**：将解空间切分为独立的子空间分别求解（分治法）。
-    *   **Divide**: Splitting the solution space into independent subspaces to solve separately (Divide and Conquer).
 
-## 五、给工程师的建议
-## V. Advice for Engineers
+## 七、给工程师的建议
+## VII. Advice for Engineers
 
 接下来的每一章，我们都不会直接扔代码。
 我们将遵循 **定义状态 -> 寻找不变性 -> 推导代码** 的流程。
@@ -129,3 +128,11 @@ We will follow the process: **Define State -> Find Invariant -> Derive Code**.
 
 请记住：**代码只是最后的翻译工作。设计发生在你的草稿纸上。**
 Remember: **Coding is just the final translation work. The design happens on your scratchpad.**
+
+---
+
+## 章节导航
+
+👉 **下一章：[第二章：排序 vs 选择 —— 消解未知的艺术](Volume2_02_Chapter02_Sort_Colors.md)**
+
+在下一章中，我们将通过荷兰国旗问题和中位数问题，具体展现如何利用 Invariant 和 Unknown Region 的定义来推导算法。

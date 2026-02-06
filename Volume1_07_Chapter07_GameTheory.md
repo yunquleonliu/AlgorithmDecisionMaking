@@ -2,9 +2,11 @@
 # Chapter 07: Game Theory — Kindness is the Optimal Evolutionary Solution
 
 > "Nice guys finish first."  
+> "好人终将领先。"  
 > —— Richard Dawkins, *The Selfish Gene*
 
 > "Under the shadow of the future, cooperation emerges."  
+> "在未来的阴影下，合作自然涌现。"  
 > —— Robert Axelrod
 
 对博弈论最常见的误读，是把他理解为出勾心斗角、尔虞我诈的，认为博弈的本质就是“如何搞垮对手”或者“如何在零和游戏中分到最大的一块蛋糕”。那其实是零和博弈的情况，对零和博弈最有效的策略是：不参与。比如不去赌场赌博。

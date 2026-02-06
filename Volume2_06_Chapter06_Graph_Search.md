@@ -2,6 +2,7 @@
 # Chapter 06: Graph Search — The Boundaries of Exploration
 
 > "Not all those who wander are lost."  
+> "流浪者未必迷路。"  
 > —— J.R.R. Tolkien
 
 图论算法看起来很难，但如果你把所有图算法剥去外壳，它们都共享同一个内核：**前沿 (Frontier) 的管理**。
