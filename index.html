@@ -78,6 +78,16 @@
         breaks: true,
       },
 
+      // LaTeX configuration to support single $ delimiters
+      katex: {
+        delimiter: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ]
+      },
+
       plugins: [
         function(hook, vm) {
           hook.doneEach(function() {
