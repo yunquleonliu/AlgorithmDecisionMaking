@@ -2,7 +2,7 @@
 
 > "The best interface to a complex problem is a trustworthy model of its structure."  
 > “面对复杂问题，最佳接口是一个值得信任的结构模型。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 本卷的旅程不是从模板开始，而是从一个问题真正允许什么操作开始。
 

@@ -18,23 +18,21 @@
   * [Chapter 13: Attention (Focus)](Volume1_13_Chapter13_Attention.md)
   * [Epilogue: Survival](Volume1_14_Epilogue.md)
 
-* **Volume II: 算法设计艺术 (Technical Design)**
-  * **Part I: Architecture of Certainty**
-  * [Chapter 1: Design Intro](Volume2_01_Chapter01_Design_Intro.md)
-  * [Chapter 2: Pair Cancellation](Volume2_02_Chapter02_Pair_Cancellation.md)
-  * [Chapter 3: Binary Search](Volume2_03_Chapter03_Binary_Search.md)
-  * [Chapter 4: Recursion](Volume2_04_Chapter04_Recursion_Induction.md)
-  * [Chapter 5: Sliding Window](Volume2_05_Chapter05_Sliding_Window.md)
-  * [Chapter 6: Graph Search](Volume2_06_Chapter06_Graph_Search.md)
-  * [Chapter 7: Dynamic Programming](Volume2_07_Chapter07_DP.md)
-  * [Chapter 8: Data Structure](Volume2_08_Chapter08_Data_Structure.md)
-  * **Part II: Engineering of Uncertainty**
-  * [Chapter 9: Randomness (Fairness)](Volume2_09_Chapter09_Randomness.md)
-  * [Chapter 10: Ambiguity (Efficiency)](Volume2_10_Chapter10_Ambiguity.md)
-  * [Chapter 11: Heuristic (Direction)](Volume2_11_Chapter11_Heuristic_Search.md)
-  * [Chapter 12: Caching (Attention)](Volume2_12_Chapter12_Caching_Attention.md)
-  * [Chapter 13: Feedback (Resilience)](Volume2_13_Chapter13_Feedback_Resilience.md)
-  * [Epilogue: Awakening](Volume2_14_Epilogue.md)
+* **Volume II: 优化原理与算法设计 (Optimization Principles)**
+  * [Chapter 1: Where Optimization Comes From](Volume2_01_Chapter01_Design_Intro.md)
+  * [Chapter 2: Invariants and Correctness](Volume2_02_Chapter02_Invariants_Correctness.md)
+  * [Chapter 3: Monotonicity and Bulk Elimination](Volume2_03_Chapter03_Monotonicity_Bulk_Elimination.md)
+  * [Chapter 4: Dominance and Monotonic Structures](Volume2_04_Chapter04_Dominance_Monotonic_Structures.md)
+  * [Chapter 5: Equivalent States and DP](Volume2_05_Chapter05_Equivalent_States_DP.md)
+  * [Chapter 6: Recursion and Decomposition](Volume2_06_Chapter06_Recursion_Decomposition.md)
+  * [Chapter 7: Graphs and Reachability](Volume2_07_Chapter07_Graph_Frontier_Reachability.md)
+  * [Chapter 8: Data Representation](Volume2_08_Chapter08_Data_Representation.md)
+  * [Chapter 9: Equivalence and Algebra](Volume2_09_Chapter09_Equivalence_Algebra.md)
+  * [Chapter 10: Uncertainty Trade-offs](Volume2_10_Chapter10_Uncertainty_Tradeoffs.md)
+  * [Chapter 11: Heuristics and Optimality](Volume2_11_Chapter11_Heuristic_Search.md)
+  * [Chapter 12: Feedback Control](Volume2_12_Chapter12_Feedback_Control.md)
+  * [Chapter 13: Deriving Algorithms](Volume2_13_Chapter13_Deriving_Algorithms.md)
+  * [Epilogue: From Calculator to Designer](Volume2_14_Epilogue.md)
 
 * **Appendices**
   * [Appendix A: Theoretical Foundations](Appendix_A_Theoretical_Foundations.md)

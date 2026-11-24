@@ -2,7 +2,7 @@
 
 > "Order is the shape upon which possibility can be cut."  
 > “次序是裁切可能性的轮廓。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 为什么指针只需向一个方向移动？因为当前比较能一次排除一整组候选，未排除空间仍保持足够表示。
 

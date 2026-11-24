@@ -2,7 +2,7 @@
 
 > "A path exists in the state space before it exists in the code."  
 > “路径先存在于状态空间，然后才存在于代码。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 很多题目没有画出图，却已经由状态和合法操作构成图。先建模，再决定遍历、复用或压缩。
 

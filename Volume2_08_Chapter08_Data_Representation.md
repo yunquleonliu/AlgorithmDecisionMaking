@@ -2,7 +2,7 @@
 
 > "Choose the representation whose maintained invariant makes the required operation cheap."  
 > “选择一个被维护的不变量能让所需操作变便宜的表示。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 数据结构不只是“强制单调性”。它还改变定位、聚合、更新、顺序、淘汰与访问成本。
 

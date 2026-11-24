@@ -2,7 +2,7 @@
 
 > "To understand a whole, define how smaller answers become the whole."  
 > “理解整体，先定义较小答案如何组成整体。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 递归不是函数调用自己的语法技巧，而是把问题契约分解为更小同类契约。
 

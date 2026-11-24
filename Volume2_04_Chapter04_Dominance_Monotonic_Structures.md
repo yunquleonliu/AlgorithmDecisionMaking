@@ -2,7 +2,7 @@
 
 > "The useful survives because no remaining future can make the discarded alternative better."  
 > “有用者留下，因为任何剩余未来都不会让被淘汰者变得更优。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 窗口滑动时，是否每个历史元素都值得保留？Daily Temperatures 和 Sliding Window Maximum 的共同答案是：只保留对某个未来查询仍可能胜出的候选。
 

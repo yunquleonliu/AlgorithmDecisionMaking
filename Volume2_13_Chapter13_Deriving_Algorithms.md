@@ -2,7 +2,7 @@
 
 > "Patterns are useful after the premises have been checked."  
 > “模式有用，前提是其假设已经被检验。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 遇到新问题时，怎样避免先猜模板？把每个设计决定连接到问题语义、必要信息、数学结构、正确性和资源成本。
 

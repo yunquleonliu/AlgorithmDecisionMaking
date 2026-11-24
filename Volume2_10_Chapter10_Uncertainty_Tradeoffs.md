@@ -2,7 +2,7 @@
 
 > "A guarantee must name the uncertainty it permits."  
 > “保证必须说明它允许哪一种不确定性。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 当内存不足、输入流未知或搜索输入可由对手控制时，确定性保证、随机保证、概率误差和空间成本需要分开说明。
 

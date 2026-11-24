@@ -2,7 +2,7 @@
 
 > "Do not repeat the calculation whose consequences are already known."  
 > “不要重复计算已经知道结果的事情。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 为什么两条不同决策路径可能汇入同一个子问题？当所有可影响未来的因素只剩相同摘要时，重复路径就不必重复计算。
 

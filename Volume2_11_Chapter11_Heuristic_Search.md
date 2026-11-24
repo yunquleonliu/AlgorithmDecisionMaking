@@ -2,7 +2,7 @@
 
 > "A heuristic decides where to look first; a proof decides what result can be claimed."  
 > “启发式决定先看哪里；证明决定可以声称什么结果。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 为什么看起来更靠近终点的状态应先搜索？因为启发式排序可能减少探索，但最短路仍需与真实已付成本和启发函数的性质一起证明。
 

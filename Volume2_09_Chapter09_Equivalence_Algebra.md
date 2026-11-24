@@ -2,7 +2,7 @@
 
 > "A compact representation earns its place by preserving the operation that matters."  
 > “紧凑表示以保留真正重要的操作为代价赢得位置。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 为什么并查集能只保留代表元，前缀和能从两个端点恢复区间？因为查询由等价关系、结合律或逆元允许的操作决定。
 

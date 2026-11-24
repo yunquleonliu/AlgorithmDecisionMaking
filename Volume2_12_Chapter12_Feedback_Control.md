@@ -2,7 +2,7 @@
 
 > "A resilient system spends some requests to preserve its capacity to serve the next."  
 > “有韧性的系统会放弃部分请求，以保住服务下一批请求的能力。”  
-> —— Original epigraph
+> —— Volume II Editorial Note
 
 任何有限容量系统都要回答：请求超过处理能力时，允许谁、拒绝谁、何时恢复？限流器不是增加容量，而是维持容量约束。
 
