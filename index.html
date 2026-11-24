@@ -92,6 +92,7 @@
         function(hook, vm) {
           hook.doneEach(function() {
             setTimeout(() => {
+              renderMath();
               processLanguage();
               restoreState();
             }, 100);
@@ -290,6 +291,24 @@
       el.classList.add('lang-processed');
     }
 
+    function renderMath() {
+      if (!window.renderMathInElement) return;
+
+      const article = document.querySelector('.markdown-section');
+      if (!article) return;
+
+      renderMathInElement(article, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ],
+        throwOnError: false,
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+      });
+    }
+
     function setLang(lang) {
       document.body.classList.remove('mode-all', 'mode-en', 'mode-zh');
       document.body.classList.add('mode-' + lang);
@@ -303,9 +322,9 @@
       setLang(pref);
     }
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <!-- LaTeX Support -->
   <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
 </html>
