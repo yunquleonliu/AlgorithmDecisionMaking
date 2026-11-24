@@ -20,13 +20,13 @@ This book is divided into two volumes, covering **Mental Models** and **Technica
 *   **Structure**: 共 8 章。第 1 章为 序言，第 2-8 章讲述 7 种核心算法精神。
 *   **Structure**: 8 Chapters. Chapter 1 is the Preface, and Chapters 2-8 cover 7 core algorithmic spirits.
 
-### **Volume II: 算法设计艺术 (The Art of Algorithm Design)**
+### **Volume II: 优化原理与算法设计 (Optimization Principles and Algorithm Design)**
 *   **Target**: 工程师、架构师、深度学习者。
 *   **Target**: Engineers, architects, and deep learners.
 *   **Goal**: 掌握设计新算法的“元方法”。
 *   **Goal**: Mastering the "meta-methods" of designing new algorithms.
-*   **Structure**: 共 8 章。第 1 章为 导论，第 2-8 章为具体的算法设计元方法。
-*   **Structure**: 8 Chapters. Chapter 1 is the Introduction, and Chapters 2-8 cover specific meta-methods of algorithm design.
+*   **Structure**: 共 13 章加终章，从统一设计链到证明、边界和工程案例。
+*   **Structure**: 13 numbered chapters plus an epilogue, from the unified design chain through proofs, boundaries, and engineering cases.
 
 ---
 
@@ -152,68 +152,25 @@ This book is divided into two volumes, covering **Mental Models** and **Technica
 
 ---
 
-## 💻 Volume II: 算法设计艺术 (13 Chapters)
+## 💻 Volume II: 优化原理与算法设计 (13 Chapters + Epilogue)
 
-### **Part I: The Architecture of Certainty (确定性的架构)**
-*(专注于精确解、逻辑推导和不变性)*
+Volume II 解释优化机会为何从问题结构中产生，并证明充分表示与优化机制如何导向算法与数据结构。
 
-### **Chapter 1: 算法设计导论 (Surgery on Solution Space)**
-*   **核心思想**：算法设计不是堆砌代码，而是对“解空间”进行手术。
+Volume II explains why optimization becomes possible from problem structure, then proves how a sufficient representation and optimization mechanism lead to an algorithm or data structure.
 
-### **Chapter 2: 消除的艺术 (Pair Cancellation)**
-*   **Mastery**：摩尔投票 (Vote)、栈的对消 (Stack)、异或 (XOR)。
-
-### **Chapter 3: 规范化 (Canonicalization)**
-*   **Mastery**：并查集 (Union-Find)、哈希键设计。
-
-### **Chapter 4: 降维打击 (Dimensional Reduction)**
-*   **Mastery**：前缀和 (Prefix Sum)、差分数组 (Difference Array)。
-
-### **Chapter 5: 瓶颈与移动 (Bottleneck & Pointers)**
-*   **Mastery**：双指针 (Two Pointers)、滑动窗口 (Sliding Window)。
-
-### **Chapter 6: 动态规划设计 (Structuring DP)**
-*   **Mastery**：状态定义、转移方程、空间压缩。
-
-### **Chapter 7: 系统化搜索 (Systematic Search)**
-*   **Mastery**：Backtracking、Pruning (剪枝)。
-
-### **Chapter 8: 图与网络 (Graph Perspectives)**
-*   **Mastery**：拓扑排序、连通性。
-
-### **Part II: The Engineering of Uncertainty (不确定性的工程)**
-*(用经典工程案例，映射 AI 与复杂系统的思想)*
-
-### **Chapter 9: 随机的力量 (Randomized Algorithms)**
-*   **Design Pattern**：随机性作为一种 Feature。
-*   **Engineering Case**：**Reservoir Sampling (蓄水池抽样)**。
-*   **Code**: 如何从无限的流数据中，均匀随机地抽取 100 个样本？
-*   **The Math**: Monte Carlo 方法的工程投影。随机不是捣乱，而是对抗“最坏情况”的武器。
-
-### **Chapter 10: 模糊的艺术 (Probabilistic Data Structures)**
-*   **Design Pattern**：牺牲精度换空间。
-*   **Engineering Case**：**Bloom Filter (布隆过滤器)**。
-*   **Code**: 如何用极小的内存判断一个网址是否被访问过？
-*   **The Math**: Distributed Representation (分布式表达)。知识被弥散存储在 BitArray 中，就像记忆在神经网络中一样。
-
-### **Chapter 11: 启发式搜索 (Heuristic Search) —— A-start 即离散世界的 SGD**
-*   **Design Pattern**：直觉指引方向。
-*   **Engineering Case**：**A* 算法**（游戏寻路）。
-*   **Code**: `PriorityQueue + Cost Function`。让搜索不再盲目。
-*   **The Math**: **SGD (随机梯度下降)** 的离散版。启发函数 H(n) 就是梯度，指引我们向着“看起来最好”的方向前进。
-
-### **Chapter 12: 遗忘的智慧 (Caching & Attention)**
-*   **Design Pattern**：有限注意力的管理。
-*   **Engineering Case**：**LRU Cache (最近最少使用缓存)**。
-*   **Code**: `HashMap + DoublyLinkedList`。
-*   **The Math**: **Attention Mechanism (注意力机制)**。KV Cache 的原型。谁最近被关注，谁就留下；被冷落的，就遗忘。
-
-### **Chapter 13: 系统的呼吸 (Feedback & Resilience)**
-*   **Design Pattern**：负反馈控制。
-*   **Engineering Case**：**Rate Limiter (限流器)** & **Backoff (退避)**。
-*   **Code**: Token Bucket (令牌桶) 算法。
-*   **The Math**: **Control Theory (控制论)**。系统必须有 pain signal (丢包/限流)，才能维持稳态。
+- [第1章：优化从何而来](Volume2_01_Chapter01_Design_Intro.md)
+- [第2章：不变量与正确性](Volume2_02_Chapter02_Invariants_Correctness.md)
+- [第3章：单调性与批量排除](Volume2_03_Chapter03_Monotonicity_Bulk_Elimination.md)
+- [第4章：支配关系与候选淘汰](Volume2_04_Chapter04_Dominance_Monotonic_Structures.md)
+- [第5章：等价状态与计算复用](Volume2_05_Chapter05_Equivalent_States_DP.md)
+- [第6章：递归、分解与归纳](Volume2_06_Chapter06_Recursion_Decomposition.md)
+- [第7章：图、前沿与可达性](Volume2_07_Chapter07_Graph_Frontier_Reachability.md)
+- [第8章：数据表示与组织成本](Volume2_08_Chapter08_Data_Representation.md)
+- [第9章：等价类与代数结构](Volume2_09_Chapter09_Equivalence_Algebra.md)
+- [第10章：不确定性下的权衡](Volume2_10_Chapter10_Uncertainty_Tradeoffs.md)
+- [第11章：启发式与最优性边界](Volume2_11_Chapter11_Heuristic_Search.md)
+- [第12章：有限资源与反馈控制](Volume2_12_Chapter12_Feedback_Control.md)
+- [第13章：从问题结构推导算法](Volume2_13_Chapter13_Deriving_Algorithms.md)
+- [第14章：从计算者到设计者](Volume2_14_Epilogue.md)
 
 Appendix A：Theoretical Foundation
-Appendix B: 算法五大视角 (The Five Worlds)**
-

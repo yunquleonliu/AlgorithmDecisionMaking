@@ -1,62 +1,66 @@
-﻿# 终章：算法工程师的觉醒 (Epilogue) —— 从计算者到设计者
-# Epilogue: The Awakening of the Algorithm Engineer — From Calculator to Designer
+# 第14章：终章：从计算者到设计者 (Epilogue: From Calculator to Designer)
 
-> "The function of good software is to make the complex appear to be simple."  
-> "好的软件的作用是让复杂的事物看起来简单。"  
-> —— Grady Booch
+> "The best interface to a complex problem is a trustworthy model of its structure."  
+> “面对复杂问题，最佳接口是一个值得信任的结构模型。”  
+> —— Original epigraph
 
-至此，**《写给未来技术领袖的算法讲义·第二卷：设计之道》** 的旅程正式结束。
-Thus, the journey of **"Algorithm for Future Leaders · Volume II: The Art of Design"** officially concludes.
+本卷的旅程不是从模板开始，而是从一个问题真正允许什么操作开始。
 
-在这一卷中，我们跨越了两个截然不同的世界：
-In this volume, we spanned two distinct worlds:
+This volume's journey did not begin with templates; it began with what a problem truly permits.
 
-1.  **确定性的架构 (The Architecture of Certainty)**:
-    在这里，我们追求完美。我们用摩尔投票消除噪音，用并查集寻找代表，用动态规划压缩空间，用双指针捕捉单调性。这里是**逻辑 (Logic)** 的王国，一切都是精确的，$1+1$ 必须等于 $2$。
+## Volume II 的共同语言 (The Shared Language of Volume II)
 
-2.  **不确定性的工程 (The Engineering of Uncertainty)**:
-    在这里，我们拥抱混沌。我们用随机性 (Reservoir) 对抗未知，用模糊 (Bloom Filter) 换取效率，用直觉 (A*) 指引方向，用遗忘 (LRU) 聚焦当下，用拒绝 (Rate Limiter) 保护生存。这里是**概率 (Probability)** 的荒原，我们学会了在不完美中寻找最优解。
+Problem Semantics 告诉我们状态如何诞生；Information Requirement 告诉我们答案需要多少信息；State Space 定义全部可能；Mathematical Structure 指出安全简化；Sufficient Representation 连接结构与实现；Proof 负责约束承诺。
 
-## 一、算法的第三重境界
-## I. The Third Realm of Algorithm
+Problem Semantics explains how states arise; Information Requirement says how much the answer needs; State Space defines possibilities; Mathematical Structure identifies safe simplification; Sufficient Representation connects structure with implementation; Proof bounds the promise.
 
-当我们谈论“算法能力”时，我们在谈论什么？
+这条语言既不把所有算法归结为 Greedy，也不把所有数据结构归结为单调性。
 
-*   **第一重境界：LeetCode (术)**
-    *   你能默写快排，能做 Hard 题。你知道 `DP` 怎么写，字典树怎么建。
-    *   这是一个**“计算者 (Calculator)”**的境界。你是一台精密的机器，执行着别人的指令。
+This language does not reduce every algorithm to Greedy or every data structure to monotonicity.
 
-*   **第二重境界：System Design (法)**
-    *   你知道什么时候该用 Redis (LRU)，什么时候该用 Kafka (Buffer)，什么时候该加 Bloom Filter。
-    *   这是一个**“工程师 (Engineer)”**的境界。你懂得权衡 (Trade-off)，懂得用空间换时间，用精度换效率。
+## 机制的谱系 (A Spectrum of Mechanisms)
 
-*   **第三重境界：World Modeling (道)**
-    *   你看到的不再是代码，而是世界的运行规律。
-    *   你看到 Stack，看到的是**“后来者居上”**的时间法则。
-    *   你看到 Entropy (熵)，看到的是**“信息的不确定度”**。
-    *   你看到 SGD，看到的是**“在迷雾中前行的勇气”**。
-    *   这是一个**“设计者 (Designer)”**的境界。你不再是写代码，你是在**对现实世界进行建模**。
+- **Eliminate**：Binary Search、Two Pointers、安全剪枝。**Eliminate**: Binary Search, Two Pointers, safe pruning.
+- **Reuse**：Memoization、DP、预计算。**Reuse**: Memoization, DP, precomputation.
+- **Decompose**：递归、Divide & Conquer。**Decompose**: Recursion, Divide & Conquer.
+- **Compress**：可达前沿、Rolling Array、代表元。**Compress**: reachable frontier, rolling arrays, representatives.
+- **Organize**：Hash、Heap、LRU、平衡树、Segment Tree。**Organize**: Hash, Heap, LRU, balanced trees, Segment Trees.
 
-## 二、给未来的你
-## II. To Future You
+不同名称可同时参与一个问题。名字帮助回忆组件，结构证明组件为何可协作。
 
-亲爱的读者，这本书不仅仅是为了让你通过 Google 或 Meta 的面试。
-Dear reader, this book is not just to help you pass interviews at Google or Meta.
+Different mechanisms can participate in the same problem. Names help recall components; structure proves why they can cooperate.
 
-我是想让你拥有一双**算法之眼 (Algorithmic Eyes)**。
+## 设计者的三类问题 (Three Questions of a Designer)
 
-当你走进星巴克，看到排队的顾客，你会本能地想到 **Queueing Theory** 和 **SJF (Shortest Job First)**。
-当你整理书架，你会想到 **Insertion Sort** 还是 **Quick Sort** 更适合物理实体。
-当你面对人生的重大抉择（考研还是工作），你会启动 **A* 搜索**，评估你的 $G(n)$ 和 $H(n)$。
-当你感到焦虑、精力耗尽时，你会意识到你的 **Token Bucket** 空了，你需要执行 **Backoff** 策略去睡觉。
+1. **Must it be retained?** 哪些信息对未来不可缺少？What information is indispensable for the future?
+2. **Can it be changed?** 哪些改变不影响答案或保证？Which changes preserve the answer or guarantee?
+3. **What does it cost?** 表示、更新、查询和错误的完整代价是什么？What are the complete costs of representation, update, query, and error?
 
-**算法不是死板的教条，它是应对复杂世界的生存智慧。**
-**Algorithms are not rigid dogmas; they are the survival wisdom for coping with a complex world.**
+## 与其他卷的边界 (Boundaries with the Other Volumes)
 
-Volume 1 教给你思维模型。
-Volume 2 教给你工程手段。
+Volume I 使用算法思维理解决策；Volume II 解释优化机会为何从结构中产生；Volume III 负责将经过证明的设计转化为模板库、工程实现与运维实践。
 
-现在，去创造你自己的世界吧。
-Now, go create your own world.
+Volume I uses algorithmic thinking to understand decisions; Volume II explains why optimization opportunities emerge from structure; Volume III translates proved designs into pattern libraries, engineering implementation, and operations.
 
-> `return 0;` // End of Program, Start of Life.
+> **机制 vs 类比（Mechanism vs Analogy）**：  
+> “人生像搜索”可以帮助阅读，但人生没有精确定义状态与成本时，不能声称 A*、LRU 或 Token Bucket 是它的算法证明。  
+> “Life resembles search” can aid reading, but without precisely defined states and costs, A*, LRU, or Token Bucket cannot be claimed as its algorithmic proof.
+
+## 给人类复审者的邀请 (An Invitation to Human Review)
+
+请挑战每个“因此”：前提是否齐全，复杂度是否区分最坏与期望，代码是否与不变量相符，类比是否越过机制。
+
+Challenge every “therefore”: are the premises complete, are worst-case and expected complexity separated, does code match the invariant, and has analogy crossed into the mechanism?
+
+算法设计的成熟，不是背下更多名字，而是能在没有模板时从结构中推导出下一个正确状态。
+
+Maturity in algorithm design is not knowing more names; it is deriving the next correct state from structure when no template is available.
+
+> **一句话总结（One-Line Summary）**：  
+> 从计算者到设计者的转变，是从“写出一种过程”变成“证明一个问题为什么允许这种过程”。  
+> The move from calculator to designer is from writing a process to proving why a problem permits that process.
+
+## 章节导航 (Navigation)
+
+👈 **上一章：[第13章：从问题结构推导算法](Volume2_13_Chapter13_Deriving_Algorithms.md)**  
+📚 **目录：[README](README.md) · [Book Framework](Book_Framework.md)**

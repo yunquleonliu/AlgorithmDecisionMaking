@@ -1,4 +1,4 @@
-# Algorithm for Future Decision Makers: The Master Framework
+﻿# Algorithm for Future Decision Makers: The Master Framework
 ## 《写给未来决策者的算法：从数学原理到人生战略》
 
 > **One-Line Summary**: 
@@ -20,13 +20,13 @@ This book is divided into two volumes, covering **Mental Models** and **Technica
 *   **Structure**: 共 8 章。第 1 章为 序言，第 2-8 章讲述 7 种核心算法精神。
     *   **Structure**: 8 Chapters. Chapter 1 is the Preface, and Chapters 2-8 cover 7 core algorithmic spirits.
 
-### **Volume II: 算法设计艺术 (The Art of Algorithm Design)**
+### **Volume II: 优化原理与算法设计 (Optimization Principles and Algorithm Design)**
 *   **Target**: 工程师、架构师、深度学习者。
     *   **Target**: Engineers, architects, and deep learners.
 *   **Goal**: 掌握设计新算法的“元方法”。
     *   **Goal**: Mastering the "meta-methods" of designing new algorithms.
-*   **Structure**: 共 8 章。第 1 章为 导论，第 2-8 章为具体的算法设计元方法。
-    *   **Structure**: 8 Chapters. Chapter 1 is the Introduction, and Chapters 2-8 cover specific meta-methods of algorithm design.
+*   **Structure**: 共 13 章加终章，从统一设计链到证明、边界和工程案例。
+    *   **Structure**: 13 numbered chapters plus an epilogue, from the unified design chain through proofs, boundaries, and engineering cases.
 
 ---
 
@@ -108,56 +108,25 @@ This book is divided into two volumes, covering **Mental Models** and **Technica
 
 ---
 
-## 💻 Volume II: 算法设计艺术 (9 Chapters)
+## 💻 Volume II: 优化原理与算法设计 (13 Chapters + Epilogue)
 
-### **Chapter 1: 算法设计导论 (Surgery on Solution Space)**
-*   **核心思想**：算法设计不是堆砌代码，而是对“解空间”进行手术。
-    *   **Core Idea**: Algorithm design is not about piling up code, but performing surgery on the "Solution Space".
-*   **五大手术刀**：搜索、剪枝、合并、贪心、切分。这是所有算法设计的元逻辑。
-    *   **The Five Scalpels**: Search, Prune, Merge, Greedy, Split. These are the meta-logics of all algorithm design.
+Volume II 解释优化机会为何从问题结构中产生，并证明充分表示与优化机制如何导向算法与数据结构。
 
-### **Chapter 2: 消除的艺术 (Pair Cancellation)**
-*   **Desgin Pattern**：化繁为简。
-    *   **Design Pattern**: Simplifying complexity.
-*   **Mastery**：摩尔投票 (Vote)、栈的对消 (Stack)、异或 (XOR)。让数据自己相互抵消，从而降低复杂度。
-    *   **Mastery**: Boyer-Moore Voting, Stack Cancellation, XOR. Let data cancel itself out to reduce complexity.
+Volume II explains why optimization becomes possible from problem structure, then proves how a sufficient representation and optimization mechanism lead to an algorithm or data structure.
 
-### **Chapter 3: 规范化 (Canonicalization)**
-*   **Design Pattern**：寻找代表。
-    *   **Design Pattern**: Finding the Representative.
-*   **Mastery**：哈希键设计、树的同构、并查集 (Union-Find)。为每一个“等价类”找到唯一的代表元素。
-    *   **Mastery**: Hash Key Design, Tree Isomorphism, Union-Find. Find a unique representative element for each "Equivalence Class".
-
-### **Chapter 4: 降维打击 (Dimensional Reduction)**
-*   **Design Pattern**：从高维到低维。
-    *   **Design Pattern**: From High Dimension to Low Dimension.
-*   **Mastery**：前缀和 (Prefix Sum)、差分数组 (Difference Array)。把 O(N) 的区间询问转化为 O(1) 的点查询。
-    *   **Mastery**: Prefix Sum, Difference Array. Transform O(N) interval queries into O(1) point queries.
-
-### **Chapter 5: 瓶颈与移动 (Bottleneck & Pointers)**
-*   **Design Pattern**：利用单调性。
-    *   **Design Pattern**: Exploiting Monotonicity.
-*   **Mastery**：双指针 (Two Pointers)、滑动窗口 (Sliding Window)。只向有希望的方向移动，绝不回头。
-    *   **Mastery**: Two Pointers, Sliding Window. Move only in promising directions, never look back.
-
-### **Chapter 6: 动态规划设计 (Structuring DP)**
-*   **Design Pattern**：有向无环图（DAG）上的最短路。
-    *   **Design Pattern**: Shortest Path on a Directed Acyclic Graph (DAG).
-*   **Mastery**：状态定义的艺术、转移方程、空间压缩。这是将指数级问题降维成多项式级问题的终极武器。
-    *   **Mastery**: The Art of State Definition, Transition Equations, Space Compression. This is the ultimate weapon to reduce exponential problems to polynomial ones.
-
-### **Chapter 7: 系统化搜索 (Systematic Search)**
-*   **Design Pattern**：逻辑完备的穷举。
-    *   **Design Pattern**: Logically complete exhaustion.
-*   **Mastery**：Backtracking (如何优雅地反悔)、Pruning (剪枝的三种境界)。在搜索树中只访问必要的节点。
-    *   **Mastery**: Backtracking (How to regret elegantly), Pruning (The Three Realms of Pruning). Visit only necessary nodes in the search tree.
-
-### **Chapter 8: 图与网络 (Graph Perspectives)**
-*   **Design Pattern**：关系大于实体。
-    *   **Design Pattern**: Relationships > Entities.
-*   **Mastery**：拓扑排序（Topological Sort）、最短路、连通性。不仅看节点，更要看边。
-    *   **Mastery**: Topological Sort, Shortest Path, Connectivity. Look not just at nodes, but at edges.
+- [第1章：优化从何而来](Volume2_01_Chapter01_Design_Intro.md)
+- [第2章：不变量与正确性](Volume2_02_Chapter02_Invariants_Correctness.md)
+- [第3章：单调性与批量排除](Volume2_03_Chapter03_Monotonicity_Bulk_Elimination.md)
+- [第4章：支配关系与候选淘汰](Volume2_04_Chapter04_Dominance_Monotonic_Structures.md)
+- [第5章：等价状态与计算复用](Volume2_05_Chapter05_Equivalent_States_DP.md)
+- [第6章：递归、分解与归纳](Volume2_06_Chapter06_Recursion_Decomposition.md)
+- [第7章：图、前沿与可达性](Volume2_07_Chapter07_Graph_Frontier_Reachability.md)
+- [第8章：数据表示与组织成本](Volume2_08_Chapter08_Data_Representation.md)
+- [第9章：等价类与代数结构](Volume2_09_Chapter09_Equivalence_Algebra.md)
+- [第10章：不确定性下的权衡](Volume2_10_Chapter10_Uncertainty_Tradeoffs.md)
+- [第11章：启发式与最优性边界](Volume2_11_Chapter11_Heuristic_Search.md)
+- [第12章：有限资源与反馈控制](Volume2_12_Chapter12_Feedback_Control.md)
+- [第13章：从问题结构推导算法](Volume2_13_Chapter13_Deriving_Algorithms.md)
+- [第14章：从计算者到设计者](Volume2_14_Epilogue.md)
 
 Appendix A：Theoretical Foundation
-Appendix B: 算法五大视角 (The Five Worlds)**
-

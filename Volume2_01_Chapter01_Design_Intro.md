@@ -1,138 +1,133 @@
-﻿# 第一章：算法设计通用方法论 —— 对解空间的手术
-# Chapter 01: The Meta-Methodology of Algorithm Design — Surgery on the Solution Space
+# 第1章：优化从何而来 (Where Optimization Comes From)
 
-> "A program is a proof that can be executed."  
-> "程序是可执行的证明。"  
-> —— Donald Knuth
+> "The formulation of the problem is often more essential than its solution."  
+> “提出问题往往比解决问题更重要。”  
+> —— Albert Einstein
 
-在 Volume I 中，我们讨论了算法的“道”——如何像计算机一样思考决策。
-In Volume I, we explored the "Tao" of algorithms—how to think and make decisions like a computer.
+为什么有些算法从 $O(n^2)$ 下降到 $O(n)$，而另一些问题似乎只能艰难搜索？答案不在代码长度，而在问题允许我们保留、丢弃、合并和重新组织什么。
 
-在 Volume II 中，我们将进入算法的“术”——如何像推导定理一样，从零开始设计一个算法。
-In Volume II, we shift our focus to the "Art" (Technique) of algorithms—how to derive an algorithm from scratch, much like proving a mathematical theorem.
+Why do some algorithms fall from $O(n^2)$ to $O(n)$ while other problems seem to require difficult search? The answer lies not in code length, but in what the problem permits us to retain, discard, merge, and reorganize.
 
-有时候算法写法是“试凑法”：先写个 `for` 循环，然后通过跑测试用例（Debug）来修修补补。但也有另外一个，常常更好办法。**算法不是“凑”出来，而是被“推导”出来。**
-Many programmers rely on "trial and error": write a `for` loop, run test cases, fix bugs, and repeat. But there is a better way. **Algorithms should not be "patched together"; they should be "derived".**
+## 设计链：从语义到证明 (The Design Chain: From Semantics to Proof)
 
-本章将介绍一套通用的算法设计元方法论：**Invariant-Based Design（不变性优先设计）**。
-This chapter introduces a universal meta-methodology for algorithm design: **Invariance-First Design**.
+Volume II 使用一条统一设计链；它是检查表，而不是声称每一步都必须显式编码。
 
-## 一、四大算法世界观 (The Four Algorithm Worldviews)
+Volume II uses one unified design chain; it is a checklist, not a claim that every step must be implemented explicitly.
 
-按认知模型，算法设计可以划分为四大流派。我们的 Volume 2 主要聚焦于前两类。
-Algorithm design can be categorized into four worldviews based on cognitive models. Volume 2 focuses primarily on the first two.
+$$
+\text{Problem Semantics}
+\to \text{Information Requirement}
+\to \text{State Space}
+\to \text{Mathematical Structure}
+\to \text{Sufficient Representation}
+\to \text{Optimization Mechanism}
+\to \text{Algorithm / Data Structure}
+\to \text{Proof}
+\to \text{Boundary}
+$$
 
-| 类别 (Category) | 核心信念 (Core Belief) | 正确性来源 (Source of Correctness) |
+### 问题语义 (Problem Semantics)
+
+语义说明输入、输出、合法操作、成本和约束。仅知道“输入是数组”还不够；必须知道数组上的哪些操作和问题目标是被允许的。
+
+Semantics specify the input, output, legal operations, costs, and constraints. Knowing only that the input is an array is insufficient; the permitted operations on it and the target query must also be known.
+
+### 信息需求 (Information Requirement)
+
+先问真正需要什么结果：完整路径、一个可行路径、最优值，还是一组统计量？只需要最短跳数而不需要具体路线时，可压缩的信息就可能更多。
+
+First ask what result is actually required: a full path, one feasible path, an optimum, or a summary. If only the minimum jump count is needed and not the route, more information may be compressible.
+
+### 状态空间 (State Space)
+
+**状态空间（State Space）**包含所有可能状态及合法转移。它可以显式为图，也可以隐式存在于数组、区间或函数调用中。
+
+**状态空间（State Space）** contains all possible states and legal transitions. It may be an explicit graph or remain implicit in arrays, intervals, or function calls.
+
+Brute Force 通常有清楚状态空间，也可能完全正确；它慢是因为它重复访问、合并或组织不当，而不是缺少正确性。
+
+Brute Force often has a clear state space and may be completely correct; it is slow because it visits redundantly or merges and organizes poorly, not because it lacks correctness.
+
+### 数学结构与充分表示 (Mathematical Structure and Sufficient Representation)
+
+**数学结构（Mathematical Structure）**包括顺序、单调性、支配、等价、结合律、守恒、可分解性和区间连续性。结构不是装饰；它决定哪些推理可成立。
+
+**数学结构（Mathematical Structure）** includes order, monotonicity, dominance, equivalence, associativity, conservation, decomposability, and interval continuity. Structure is not decoration; it determines which deductions are valid.
+
+**充分表示（Sufficient Representation）**是在给定查询和操作集合下保留了足够信息的表示。例如，只回答静态连通性时，Union-Find 的分量代表元足够；回答最短路时则不够。
+
+**充分表示（Sufficient Representation）** preserves enough information for a specified set of queries and operations. Union-Find component representatives suffice for connectivity queries, but not for shortest paths.
+
+$$
+\text{Optimization Opportunity}
+=
+\text{Problem Structure}
++
+\text{Sufficient Representation}
++
+\text{Optimization Mechanism}
+$$
+
+## 五类优化机制 (Five Optimization Mechanisms)
+
+| 机制 (Mechanism) | 问题 (Question) | 例子 (Examples) |
 | :--- | :--- | :--- |
-| **Invariant-Based** | 结构一旦成立不可逆 (Structure is irreversible) | 结构封闭 (Structural Closure) |
-| **Search-Based** | 没捷径，只能找完备搜索 (No shortcuts, complete search) | 完备性 (Completeness) |
-| **Convergence-Based** | 当前不对，但在变好 (Improving over time) | 收敛性 (Convergence) |
-| **Stochastic-Based** | 世界不确定 (Uncertain world) | 概率 / 期望 (Probability / Expectation) |
+| **Eliminate / Prune** | 哪些候选可永久排除？What candidates can be removed permanently? | Binary Search、Two Pointers、Greedy |
+| **Merge / Reuse** | 哪些等价计算只做一次？Which equivalent computations can be done once? | Memoization、DP、Prefix Sum |
+| **Decompose / Combine** | 如何拆分并组合？How can work be split and combined? | Recursion、Merge Sort、Divide & Conquer |
+| **Compress / Transform** | 哪个较小表示仍充分？Which smaller representation remains sufficient? | Reachability boundary、Rolling array |
+| **Organize / Maintain** | 如何降低访问、更新和聚合成本？How can access, update, and aggregation costs fall? | Hash、Heap、BST、LRU、Segment Tree |
 
-## 二、核心公式：正确性与效率的双重奏
-## II. The Core Formula: Correctness and Efficiency
+这五类并不互斥。二分需要单调谓词，也需要可随机访问；单调队列同时使用支配、数据组织和摊还分析。
 
-直觉的问题，Brute Force (暴力搜索) 也有 Invariant，也有正确的 Boundary，也能得到正确结果。那它为什么慢？
-Brute Force has invariants and correct boundaries, yet it is slow. Why?
+These five categories are not mutually exclusive. Binary Search needs a monotone predicate and random access; a monotonic queue combines dominance, data organization, and amortized analysis.
 
-这引出了算法设计的核心公式：
-This leads to the core formula of algorithm design:
+## 正确性不是效率 (Correctness Is Not Efficiency)
 
-$$
-\text{Efficient Algorithm} = \text{Invariant (Correctness)} + \text{Monotonicity (Efficiency)}
-$$
+**不变量（Invariant）**支持正确性证明，但不自动带来速度。一个 $O(n^2)$ 算法也可以拥有完美的不变量。
 
-### 1. Invariant (不变性) —— 算法的方向盘
-### 1. Invariant — The Steering Wheel
+**不变量（Invariant）** supports a correctness proof but does not automatically create speed. An $O(n^2)$ algorithm can have a perfect invariant.
 
-如果说算法是一辆车，**循环不变性**就是它的方向盘。它保证了你无论开多远，方向永远是对的。
-If an algorithm is a car, the **Loop Invariant** is its steering wheel. It ensures that no matter how far you drive, you are always heading in the correct direction.
+效率来自额外理由：每次排除多少候选、每个状态计算几次、哪些工作被摊还，或访问某个信息需要多少成本。
 
-它是一个数学陈述（Statement），满足以下性质：
-*   **初始化 (Initialization)**：在循环开始前，它是真的。
-*   **保持 (Maintenance)**：如果在某次迭代开始时它是真的，那么执行完循环体代码后，它依然是真的。
-*   **终止 (Termination)**：当循环结束时，结合不变性和终止条件，可以直接推导出算法的正确性。
+Efficiency comes from additional reasons: how many candidates each step excludes, how often each state is computed, what work is amortized, or what it costs to access information.
 
-### 2. Monotonicity (单调性) —— 算法的引擎
-### 2. Monotonicity — The Engine
+> **机制 vs 类比（Mechanism vs Analogy）**：  
+> “剪枝像修剪花园”只是类比；真正的机制是候选空间的包含关系和安全排除证明。  
+> “Pruning resembles trimming a garden” is only an analogy; the actual mechanism is containment in the candidate space plus a proof of safe exclusion.
 
-单调性决定了算法“跑得有多快”。
-Monotonicity determines how fast the algorithm runs.
+## 算法与数据结构的职责 (Responsibilities of Algorithms and Data Structures)
 
-*   **Weak Monotonicity (Brute Force)**: 每次迭代排除 1 个解。效率 $O(N)$。
-*   **Strong Monotonicity (Efficient Algos)**: 每次迭代排除 $N/2$ 个解（Binary Search），或者每一步都能**永久性**锁定一个局部最优（Greedy）。
+算法规定计算与决策顺序；数据结构规定充分信息如何被表示、索引、更新和访问。
 
-## 三、算法的战场：管理“未知区域” (The Unknown Region)
+Algorithms specify computation and decision order; data structures specify how sufficient information is represented, indexed, updated, and accessed.
 
-设计算法不仅仅是处理“已知”，更是在管理“未知”。
-Designing algorithms is not just about handling the "Known", but managing the "Unknown".
+例如，Daily Temperatures 首先通过“未解决状态”识别可删除信息，再证明这些状态温度非递增，最后才选择 Stack。Stack 不是结论的来源，而是这些数学性质的实现载体。
 
-### 1. 变量即边界 (Variables as Boundaries)
-大多数的 Bug 都是因为 $i$ 和 $j$ 的边界搞错了（Off-by-one error）。这是因为没有定义 $i$ 和 $j$ 的**物理意义**。
-在我们的方法论中：
-*   **Variables ($L, R, mid$)** 的本质是夹逼出 **Unknown Region**。
-*   **Invariant** 不仅约束 Known，也对应 Unknown 的性质（如：Target 必定在 Unknown 区间内）。
+For Daily Temperatures, one first identifies disposable resolved states, then proves the remaining temperatures are non-increasing, and only then selects a Stack. The Stack is not the source of correctness; it implements the established properties.
 
-### 2. 未知的消除 (Reducing the Unknown)
-算法执行的过程，就是 **Unknown 区域不断被压缩直至消失** 的过程。
+## 从 Brute Force 开始 (Start from Brute Force)
 
-*   **Monotonicity 的物理含义**：确保关每一轮迭代，**Unknown 区域都在严格缩小**。
-    *   在 **Sort Colors** 中：Unknown 区域 $[mid, high]$ 每次减少 1 个元素。
-    *   在 **Binary Search** 中：Unknown 区域 $[L, R]$ 每次减少 $50\%$。
-    *   在 **Select K-th** 中：我们不需要消除所有 Unknown，只需消除“不包含第 K 个”的那部分 Unknown。
+Brute Force 不应被羞辱；它先建立正确的语义基线。
 
-## 四、数据结构的本质：强制单调性
-## IV. Data Structure: Enforcing Monotonicity
+Brute Force should not be shamed; it first establishes a correct semantic baseline.
 
-我们为什么要引入 Stack, Heap 或特定的 Tree？
-**数据结构的作用，就是“物理上”限制了 Variable 的自由度，从而强制其行为必须符合某种单调性。**
-**Data structures physically restrict the degrees of freedom of variables, forcing their behavior to comply with specific monotonicity.**
+1. **列出所有状态和转移**。List every state and transition.
+2. **验证完整而可终止**。Verify completeness and termination.
+3. **寻找重复、被支配状态和共享查询**。Find repetition, dominated states, and shared queries.
+4. **证明压缩仍相对于目标充分**。Prove that compression remains sufficient for the target.
+5. **分析实现的最坏或期望成本**。Analyze worst-case or expected implementation costs.
 
-*   **Array**: 随意访问，难以保证“只看有用的”。
-*   **Monotonic Stack**: **物理上禁止**了违反单调性的元素存在（入栈即剔除）。
-*   **Priority Queue (Heap)**: 限制只能访问极值，强制维护局部有序。
+## 边界与反例 (Boundary and Counterexample)
 
-## 五、Invariant-Based 设计框架 (The Design Framework)
+- Binary Search 的边界不是“数组排好序就永远有效”；还需要单调谓词与中点访问。Binary Search requires a monotone predicate and usable midpoint access.
+- Rolling array 有效仅当未来只依赖有限邻近状态。A rolling array works only when the future depends on a bounded state neighborhood.
+- 随机化可以改变期望性能，却不自动消除对抗性最坏情况。Randomization can change expected performance without necessarily eliminating adversarial worst cases.
 
-在接下来的每一章中，我们将遵循这四个步骤来“推导”算法：
+> **一句话总结（One-Line Summary）**：  
+> 先确定问题真正需要什么信息，再利用数学结构找到充分表示，并证明哪些工作可被消除、复用、分解、压缩或组织。  
+> First determine what information the problem truly requires, then use mathematical structure to find a sufficient representation and prove which work can be eliminated, reused, decomposed, compressed, or organized.
 
-1.  **Boundaries / Variables (Define Unknown)**
-    *   定义清楚 $L, R$ 或 $mid$ 等变量。
-    *   明确它们围成的 **Unknown Region** 是哪一段？(e.g., $[L, R]$)。
-2.  **Semantic Invariant (Define Correctness)**
-    *   在 Unknown 区域必须满足什么承诺？(e.g., Target 若存在必在其中)。
-    *   Known 区域已经满足了什么性质？(e.g., $nums[0...low-1]$ 全是红球)。
-3.  **Reduce Unknown (Define Monotonicity)**
-    *   每一轮如何识别“有序半区”或“特定元素”？
-    *   如何通过移动 Boundaries，使得 Unknown 区域 **严格单调缩小**？
-4.  **Select Structure (Enforcement)**
-    *   既有的变量能否维持单调性？是否需要 Stack/Heap 辅助？
+## 章节导航 (Navigation)
 
-## 六、五大手术刀 (The Five Surgical Tools)
-
-面对庞大的解空间，我们有五把手术刀：
-
-1.  **Search (搜索)**：系统性地遍历（DFS/BFS）。
-2.  **Prune (剪枝)**：通过逻辑断言，直接砍掉甚至不需要看一眼的子空间（"如果 A>B，那么 A 的所有子树都不可能是最优解"）。
-3.  **Reduce (归约/降维)**：将问题变换为另一个已知问题（把“最大子矩形”归约为“直方图最大面积”）。
-4.  **Greedy (贪心)**：在每一步都做局部最优，从而收缩解空间。
-5.  **Divide (切分)**：将解空间切分为独立的子空间分别求解（分治法）。
-
-## 七、给工程师的建议
-## VII. Advice for Engineers
-
-接下来的每一章，我们都不会直接扔代码。
-我们将遵循 **定义状态 -> 寻找不变性 -> 推导代码** 的流程。
-In the following chapters, we will not just throw code at you.
-We will follow the process: **Define State -> Find Invariant -> Derive Code**.
-
-请记住：**代码只是最后的翻译工作。设计发生在你的草稿纸上。**
-Remember: **Coding is just the final translation work. The design happens on your scratchpad.**
-
----
-
-## 章节导航
-
-👉 **下一章：[第二章：排序 vs 选择 —— 消解未知的艺术](Volume2_02_Chapter02_Sort_Colors.md)**
-
-在下一章中，我们将通过荷兰国旗问题和中位数问题，具体展现如何利用 Invariant 和 Unknown Region 的定义来推导算法。
+👉 **下一章：[第2章：不变量与正确性](Volume2_02_Chapter02_Invariants_Correctness.md)**
